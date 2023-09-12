@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+  /* flash messages */
+  .flashes {
+    @apply relative;
+  }
+
+  .flash {
+    @apply absolute top-5 left-1/2 -translate-x-1/2 text-center text-sm px-4 py-2 font-medium rounded-lg;
+
+    &.notice,
+    &.success {
+      @apply bg-green-200 text-green-900;
+    }
+
+    &.error,
+    &.alert {
+      @apply bg-red-300 text-red-900;
+    }
+  }
+
+  /* animation keyframes */
+  @keyframes fade-in-and-out {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    25%,
+    75% {
+      opacity: 1;
+    }
+  }
+}

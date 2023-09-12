@@ -1,0 +1,153 @@
+<div data-controller='sidebar'>
+  <nav class="fixed top-0 z-50 w-full border-b border-gray-200 bg-background">
+    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center justify-start">
+          <button
+            data-sidebar-target='button'
+            data-drawer-target="logo-sidebar"
+            data-drawer-toggle="logo-sidebar"
+            aria-controls="logo-sidebar"
+            type="button"
+            class="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden"
+          >
+            <span class="sr-only">Open sidebar</span>
+            <svg
+              id="svg-sidebar-button"
+              class="h-6 w-6"
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                id="path-sidebar-button"
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+              ></path>
+            </svg>
+          </button>
+          <%= link_to root_path, class: "ml-2 flex md:mr-24" do %>
+            <%= image_tag('logo.png', class: "mr-3 h-8") %>
+            <span class="self-center whitespace-nowrap text-xl font-semibold md:text-2xl">
+              Contact Hub
+            </span>
+          <% end %>
+        </div>
+        <%# user menu icon %>
+        <div class="flex items-center">
+          <div class="ml-3 flex items-center">
+            <button
+              data-sidebar-target='userButton'
+              type="button"
+              class="flex rounded-full p-1 text-sm ring-1 ring-gray-400 focus:ring-gray-300"
+              aria-expanded={isOpen}
+              data-dropdown-toggle="dropdown-user"
+            >
+              <svg
+                data-sidebar-target="svgUserButton"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width={1.5}
+                stroke="currentColor"
+                class="h-6 w-6"
+              >
+                <path
+                  data-sidebar-target="pathUserButton"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                />
+              </svg>
+            </button>
+            <%# dropdown %>
+            <div
+              class="hidden absolute right-4 top-10 z-50 my-4 list-none divide-y divide-gray-100 rounded bg-white text-base shadow"
+              data-sidebar-target='userMenu'
+            >
+              <div class="px-4 py-3" role="none">
+                <p class="text-sm text-gray-900" role="none">
+                  <%= "#{current_user.first_name} #{current_user.last_name}" %>
+                </p>
+                <p
+                  class="truncate text-sm font-medium text-gray-900"
+                  role="none"
+                >
+                  <%= current_user.email %>
+                </p>
+              </div>
+              <ul class="py-1" role="none">
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                  >
+                    Perfil
+                  </a>
+                </li>
+                <li>
+                  <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "block w-full px-4 py-2 text-start text-sm text-gray-700 hover:bg-gray-100" do %>
+                    Sair
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+            <%# dropdown %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <aside
+    data-sidebar-target='menu'
+    id="logo-sidebar"
+    class="fixed left-0 top-0 z-40 h-screen w-64 border-r border-gray-200 bg-background pt-20 transition-transform md:translate-x-0 -translate-x-full"
+    aria-label="Sidebar"
+  >
+
+    <div class="h-full overflow-y-auto bg-background px-3 pb-4">
+      <ul class="space-y-2 font-medium">
+        <li>
+          <%= link_to applications_path, class: "flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100" do %>
+            <svg aria-hidden="true" class="h-6 w-6 flex-shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
+            <span class="ml-3 font-medium">Aplicações</span>
+          <% end %>
+        </li>
+        <li>
+          <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+            <svg
+              class="h-6 w-6 flex-shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+            </svg>
+            <span class="flex-1 ml-3 font-medium whitespace-nowrap">Usuários</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200">
+        <li>
+          <%= link_to rswag_ui_path, class: "flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100" do %>
+            <svg
+              class="h-6 w-6 flex-shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 16 20"
+            >
+              <path d="M16 14V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 0 0 0-2h-1v-2a2 2 0 0 0 2-2ZM4 2h2v12H4V2Zm8 16H3a1 1 0 0 1 0-2h9v2Z" />
+            </svg>
+
+            <span class="ml-3 font-medium flex-1 whitespace-nowrap">Documentação</span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </aside>
+</div>

@@ -1,0 +1,42 @@
+<div class="min-h-[100svh] bg-background">
+  <section class="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
+    <div class="mb-6 flex items-center text-2xl font-semibold text-gray-900">
+      <%# <img
+        class="mr-2 h-8 w-8"
+        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.png"
+        alt="logo"
+      /> %>
+      <%= image_tag('logo.png', class: 'mr-2 h-10 w-10') %>
+      Contact Hub
+    </div>
+    <div class="w-full rounded-lg bg-white shadow sm:max-w-md md:mt-0 xl:p-0">
+      <div class="space-y-4 p-6 sm:p-8 md:space-y-6">
+        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+          Log in
+        </h1>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'space-y-4 md:space-y-6') do |f| %>
+          <div>
+            <%= f.label :email, class: "block mb-2 text-sm font-medium text-gray-900" %>
+            <%= f.text_field :email, autofocus: true, required: true, placeholder: 'email@exemplo.com', autocomplete: "email", class: "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" %>
+          </div>
+          <div>
+            <%= f.label :password, class: "block mb-2 text-sm font-medium text-gray-900 pt-2" %>
+            <%= f.password_field :password, required: true, placeholder: '********', autocomplete: "current-password", class: "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" %>
+          </div>
+          <% if devise_mapping.rememberable? %>
+            <div class="flex items-start py-4">
+              <div class="flex items-center h-5">
+                <%= f.check_box :remember_me, class: "w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300" %>
+              </div>
+              <div class="ml-3 text-sm">
+                <%= f.label :remember_me, class: "font-light text-gray-500" %>
+              </div>
+            </div>
+          <% end %>
+          <%= f.submit "Entrar", class: "w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
+        <% end %>
+        <%#= render "devise/shared/links" %>
+      </div>
+    </div>
+  </section>
+</div>
