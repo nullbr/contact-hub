@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import UserMenu from "./UserMenu";
-import Logo from "../../../assets/images/logo.svg";
+import Logo from "../../../assets/images/logo.png";
 import BottomMenu from "./BottomMenu";
 import { RootState } from "../../../store";
 import { useDispatch, useSelector } from "react-redux";

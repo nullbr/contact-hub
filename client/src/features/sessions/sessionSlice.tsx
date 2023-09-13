@@ -1,11 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  createUser,
   getCurrentUser,
   loginWithCredentials,
   logoutUserWithToken,
   requestAccessTokenWithRefreshToken,
 } from "../../api/sessions";
-import { SessionResponse, UserResponse } from "../../types/sessions";
+import {
+  CreateUserPayload,
+  SessionResponse,
+  UserDetails,
+  UserResponse,
+} from "../../types/sessions";
 
 type Messages = {
   success?: Array<string>;
@@ -69,6 +75,21 @@ export const loginUser = createAsyncThunk(
       return rejectWithValue(userResponse.errors);
 
     return { session: loginResponse, user: userResponse };
+  }
+);
+
+// sign up user with details
+export const signUpUser = createAsyncThunk(
+  "session/signUpUser",
+  async (details: CreateUserPayload, { rejectWithValue }) => {
+    const createResponse = await createUser(details);
+
+    console.log(createResponse);
+
+    if (createResponse.errors.length > 0)
+      return rejectWithValue(createResponse.errors);
+
+    return createResponse;
   }
 );
 
@@ -146,7 +167,7 @@ const sessionSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, { payload }) => {
         const session = payload.session as SessionResponse;
-        const user = payload.user as UserResponse;
+        const user = payload.user;
 
         state.currentUser = {
           id: user.user.id,
@@ -173,6 +194,41 @@ const sessionSlice = createSlice({
         state.loading = false;
         state.error = true;
         state.messages = { success: [], error: payload as Array<string> };
+      })
+      .addCase(signUpUser.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+        state.messages = initialState.messages;
+      })
+      .addCase(signUpUser.fulfilled, (state, { payload }) => {
+        const session = payload.session as SessionResponse;
+        const user = payload.user as UserDetails;
+
+        state.currentUser = {
+          id: user.id,
+          email: user.email,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          role: user.role,
+          createdAt: user.created_at,
+          avatarUrl: user.avatar_url,
+        };
+        state.accessToken = session.access_token;
+        state.refreshToken = session.refresh_token;
+        state.expiresAt = getExpirationTime(session.expires_in);
+        state.tokenType = session.token_type;
+        state.createdAt = session.created_at;
+
+        storeRefreshToken(session.refresh_token);
+
+        state.loading = false;
+        state.error = false;
+        state.messages = { success: ["Cadastro realizado com sucesso"] };
+      })
+      .addCase(signUpUser.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = true;
+        state.messages = { error: payload as Array<string> };
       })
       .addCase(refreshAccessToken.pending, (state) => {
         state.loading = true;

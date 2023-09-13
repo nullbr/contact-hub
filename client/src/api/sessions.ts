@@ -1,4 +1,6 @@
 import {
+  CreateUserPayload,
+  CreateUserResponse,
   Credentials,
   EditUserPayload,
   SessionResponse,
@@ -38,6 +40,26 @@ export async function loginWithCredentials(credentials: {
       if (error.response?.data) return error.response.data;
 
       return { errors: ["Erro ao fazer login"] };
+    });
+}
+
+export async function createUser(
+  details: CreateUserPayload
+): Promise<CreateUserResponse> {
+  const payload = {
+    registration: details,
+    client_id: CLIENT_ID,
+  };
+
+  return axiosInstance
+    .post(EDIT_USER_URL, payload)
+    .then((response) => {
+      return { ...response.data, errors: [] };
+    })
+    .catch((error) => {
+      if (error.response?.data) return error.response.data;
+
+      return { errors: ["Erro ao criar usuário"] };
     });
 }
 

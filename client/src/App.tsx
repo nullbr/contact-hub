@@ -14,12 +14,14 @@ import PersistLogin from "./components/Sessions/PersistLogin";
 // error pages
 import Maintenance from "./components/ErrorPages/Maintenance";
 import NotFound from "./components/ErrorPages/NotFound";
+import SignUp from "./components/Sessions/SignUp";
 
 function App() {
   return (
     <Routes>
       <Route element={<PersistLogin />}>
         <Route path="/login" element={<LogIn />} />
+        <Route path="/cadastrar" element={<SignUp />} />
 
         {/* Protected Routes */}
         <Route element={<ProtectedRoutes />}>

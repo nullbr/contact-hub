@@ -35,7 +35,7 @@ module Api
             generate_access_token(@user, client_app)
             render :show, status: :created
           else
-            render json: { errors: @user.errors.messages }, status: :unprocessable_entity
+            render json: { errors: [@user.errors.full_messages] }, status: :unprocessable_entity
           end
         end
 

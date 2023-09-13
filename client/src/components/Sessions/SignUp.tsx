@@ -1,31 +1,34 @@
 import { toast } from "react-hot-toast";
 import { useEffect, useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../features/sessions/sessionSlice";
+import { signUpUser } from "../../features/sessions/sessionSlice";
 import { RootState } from "../../store";
 import Logo from "../../assets/images/logo.png";
 import Copyright from "../Shared/Copyright";
 import { LoaderIcon } from "../../assets/icons/loaderIcon";
+import { CreateUserPayload } from "../../types/sessions";
 
-export default function LogIn() {
+export default function SignUp() {
   const dispatch = useDispatch() as any;
   const { loading, accessToken } = useSelector(
     (store: RootState) => store.sessions
   );
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = "/";
 
   // Refs
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const passwordConfirmationRef = useRef<HTMLInputElement | null>(null);
+  const firstNameRef = useRef<HTMLInputElement | null>(null);
+  const lastNameRef = useRef<HTMLInputElement | null>(null);
 
   // Effects
   useEffect(() => {
     // set page title
-    document.title = "Log in | Contact Hub";
+    document.title = "Cadastrar-se | Contact Hub";
   }, []);
 
   useEffect(() => {
@@ -41,15 +44,28 @@ export default function LogIn() {
 
     const email = emailRef?.current?.value;
     const password = passwordRef?.current?.value;
+    const passwordConfirmation = passwordConfirmationRef?.current?.value;
+    const firstName = firstNameRef?.current?.value;
+    const lastName = lastNameRef?.current?.value;
 
     // Perform form validations
-    if (!email || !password) {
-      toast.error("Por favor, preencha todos os campos");
-      return;
-    }
+    if (!email || !password || !passwordConfirmation || !firstName || !lastName)
+      return toast.error("Por favor, preencha todos os campos");
+
+    if (password !== passwordConfirmation)
+      return toast.error("As senhas não coincidem");
+
+    // payload
+    const details: CreateUserPayload = {
+      email,
+      password,
+      password_confirmation: passwordConfirmation,
+      first_name: firstName,
+      last_name: lastName,
+    };
 
     // sign in user with useLogIn hook
-    dispatch(loginUser({ email, password }));
+    dispatch(signUpUser(details));
   };
 
   return (
@@ -60,8 +76,46 @@ export default function LogIn() {
       </div>
       <div className="w-full rounded-lg bg-white shadow sm:max-w-md md:mt-0 xl:p-0">
         <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
-          <h1>Log in</h1>
+          <h1>Cadastrar-se</h1>
           <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+            {/* first name */}
+            <div>
+              <label
+                htmlFor="first_name"
+                className="mb-2 block text-sm font-medium text-gray-900"
+              >
+                Nome
+              </label>
+              <input
+                ref={firstNameRef}
+                type="text"
+                name="first_name"
+                id="first_name"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-primary-600 focus:ring-primary-600 sm:text-sm"
+                placeholder="João"
+                required
+                autoFocus
+              />
+            </div>
+            {/* last name */}
+            <div>
+              <label
+                htmlFor="last_name"
+                className="mb-2 block text-sm font-medium text-gray-900"
+              >
+                Sobrenome
+              </label>
+              <input
+                ref={lastNameRef}
+                type="text"
+                name="last_name"
+                id="last_name"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-primary-600 focus:ring-primary-600 sm:text-sm"
+                placeholder="Silva"
+                required
+              />
+            </div>
+            {/* email */}
             <div>
               <label
                 htmlFor="email"
@@ -78,9 +132,9 @@ export default function LogIn() {
                 placeholder="nome@exemplo.com"
                 required
                 autoComplete="email"
-                autoFocus
               />
             </div>
+            {/* password */}
             <div>
               <label
                 htmlFor="password"
@@ -99,6 +153,26 @@ export default function LogIn() {
                 autoComplete="current-password"
               />
             </div>
+            {/* password confirmation */}
+            <div>
+              <label
+                htmlFor="password_confirmation"
+                className="mb-2 block text-sm font-medium text-gray-900"
+              >
+                Confirmar senha
+              </label>
+              <input
+                ref={passwordConfirmationRef}
+                type="password"
+                name="password_confirmation"
+                id="password_confirmation"
+                placeholder="••••••••"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-primary-600 focus:ring-primary-600 sm:text-sm"
+                required
+                autoComplete="current-password"
+              />
+            </div>
+            {/* submit button */}
             <button
               disabled={loading}
               type="submit"
@@ -113,14 +187,14 @@ export default function LogIn() {
             </button>
           </form>
 
-          {/* sign up link */}
+          {/* sign in link */}
           <p className="text-sm">
-            Não tem uma conta?{" "}
+            Já tem uma conta?{" "}
             <Link
-              to="/cadastrar"
+              to="/login"
               className="text-primary-600 hover:text-primary-700"
             >
-              Cadastre-se
+              Login
             </Link>
           </p>
         </div>
