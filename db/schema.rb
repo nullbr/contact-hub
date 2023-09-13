@@ -19,9 +19,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_224354) do
     t.string "cpf"
     t.string "phone_number"
     t.bigint "location_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_contacts_on_location_id"
+    t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
   create_table "images", force: :cascade do |t|
@@ -90,6 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_224354) do
   end
 
   add_foreign_key "contacts", "locations"
+  add_foreign_key "contacts", "users"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "users", "images"
 end

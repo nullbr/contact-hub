@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   belongs_to :image, optional: true
 
+  has_many :contacts, dependent: :destroy
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,

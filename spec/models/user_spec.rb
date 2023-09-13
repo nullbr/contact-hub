@@ -7,6 +7,10 @@ RSpec.describe User, type: :model do
     @user1 = create(:user)
   end
 
+  describe 'Associations' do
+    it { should have_many(:contacts) }
+  end
+
   describe 'Validations' do
     it 'is valid with valid attributes' do
       expect(@user1).to be_valid
