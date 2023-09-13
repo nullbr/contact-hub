@@ -1,3 +1,85 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  body {
+    @apply bg-background;
+  }
+
+  h1 {
+    @apply text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl;
+  }
+
+  h3 {
+    @apply mb-1 text-xl font-bold text-gray-900;
+  }
+
+  /* form fields */
+
+  .form-select {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 capitalize;
+  }
+
+  .form-input {
+    @apply shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5;
+  }
+
+  .form-paragraph {
+    @apply shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5;
+  }
+}
+
+@layer utilities {
+  @keyframes slideDown {
+    0% {
+      max-height: 0;
+    }
+    100% {
+      max-height: 1000px;
+    }
+  }
+
+  @keyframes slideUp {
+    0% {
+      max-height: 1000px;
+    }
+    100% {
+      max-height: 0;
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.5s linear;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 1s linear;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  /* removing increment arrows from number input */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+    appearance: textfield; /* Safari and Chrome */
+  }
+}
