@@ -4,1022 +4,48 @@ info:
   title: Contact Hub API V1
   version: v1
 paths:
-  "/candidates":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-    get:
-      summary: Get all candidates
-      tags:
-        - Candidato
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: candidates found
-        "401":
-          description: unauthorized
-    post:
-      summary: Create a candidate
-      tags:
-        - Candidato
-      security:
-        - Bearer: []
-      parameters: []
-      responses:
-        "201":
-          description: candidate created
-        "401":
-          description: unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                candidate:
-                  full_name:
-                    type: string
-                  nickname:
-                    type: string
-                  cpf:
-                    type: number
-                  email:
-                    type: string
-                  phone:
-                    type: string
-                  position_id:
-                    type: number
-                  party_id:
-                    type: number
-                  location_id:
-                    type: number
-              required:
-                - full_name
-                - nickname
-                - cpf
-                - location_id
-          application/xml:
-            schema:
-              type: object
-              properties:
-                candidate:
-                  full_name:
-                    type: string
-                  nickname:
-                    type: string
-                  cpf:
-                    type: number
-                  email:
-                    type: string
-                  phone:
-                    type: string
-                  position_id:
-                    type: number
-                  party_id:
-                    type: number
-                  location_id:
-                    type: number
-              required:
-                - full_name
-                - nickname
-                - cpf
-                - location_id
-  "/candidates/{id}":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: id
-        in: path
-        required: true
-        description: ID of the candidate
-        schema:
-          type: string
-    get:
-      summary: Get a candidate
-      tags:
-        - Candidato
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: candidate found
-        "404":
-          description: candidate not found
-        "401":
-          description: unauthorized
-    delete:
-      summary: Delete a candidate
-      tags:
-        - Candidato
-      security:
-        - Bearer: []
-      responses:
-        "204":
-          description: candidate deleted
-        "404":
-          description: candidate not found
-        "401":
-          description: unauthorized
-  "/candidates/destroy_multiple":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-    put:
-      summary: Destroy multiple candidates
-      tags:
-        - Candidato
-      security:
-        - Bearer: []
-      parameters: []
-      responses:
-        "200":
-          description: candidates destroyed
-        "401":
-          description: unauthorized
-  "/candidates/{id}/update_photo":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: id
-        in: path
-        required: true
-        description: ID of the candidate
-        schema:
-          type: string
-    patch:
-      summary: Update a candidate's photo
-      tags:
-        - Candidato
-      security:
-        - Bearer: []
-      parameters: []
-      responses:
-        "200":
-          description: candidate photo updated
-        "401":
-          description: unauthorized
-  "/chapas/{chapa_id}/candidates":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: chapa_id
-        in: path
-        required: true
-        description: ID of the chapa
-        schema:
-          type: string
-    get:
-      summary: Get all chapa candidates
-      tags:
-        - Chapa Candidate
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: candidates found
-  "/chapas/{chapa_id}/candidates/options":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: chapa_id
-        in: path
-        required: true
-        description: ID of the chapa
-        schema:
-          type: string
-    get:
-      summary: Get all candidates not in the chapa
-      tags:
-        - Chapa Candidate
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: candidates found
-  "/chapas/{chapa_id}/candidates/{id}":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: chapa_id
-        in: path
-        required: true
-        description: ID of the chapa
-        schema:
-          type: string
-      - name: id
-        in: path
-        required: true
-        description: ID of the candidate
-        schema:
-          type: string
-    patch:
-      summary: Add candidate to a chapa
-      tags:
-        - Chapa Candidate
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: candidate added to chapa
-        "404":
-          description: chapa not found
-        "401":
-          description: unauthorized
-    delete:
-      summary: Delete a candidate from chapa
-      tags:
-        - Chapa Candidate
-      security:
-        - Bearer: []
-      responses:
-        "204":
-          description: candidate deleted from chapa
-        "404":
-          description: chapa not found
-        "401":
-          description: unauthorized
-  "/chapas/{chapa_id}/parties":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: chapa_id
-        in: path
-        required: true
-        description: ID of the chapa
-        schema:
-          type: string
-    get:
-      summary: Get all chapa parties
-      tags:
-        - Chapa Party
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: parties found
-  "/chapas/{chapa_id}/parties/options":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: chapa_id
-        in: path
-        required: true
-        description: ID of the chapa
-        schema:
-          type: string
-    get:
-      summary: Get all parties not in the chapa
-      tags:
-        - Chapa Party
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: parties found
-  "/chapas/{chapa_id}/parties/{id}":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: chapa_id
-        in: path
-        required: true
-        description: ID of the chapa
-        schema:
-          type: string
-      - name: id
-        in: path
-        required: true
-        description: ID of the party
-        schema:
-          type: string
-    patch:
-      summary: Add party to a chapa
-      tags:
-        - Chapa Party
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: party added to chapa
-        "404":
-          description: chapa not found
-        "401":
-          description: unauthorized
-    delete:
-      summary: Delete a party from chapa
-      tags:
-        - Chapa Party
-      security:
-        - Bearer: []
-      responses:
-        "204":
-          description: party deleted from chapa
-        "404":
-          description: chapa not found
-        "401":
-          description: unauthorized
-  "/chapas":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-    get:
-      summary: Get all chapas
-      tags:
-        - Chapa
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: chapas found
-    post:
-      summary: Create a chapa
-      tags:
-        - Chapa
-      security:
-        - Bearer: []
-      parameters: []
-      responses:
-        "201":
-          description: chapa created
-        "401":
-          description: unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                chapa:
-                  name:
-                    type: string
-                  coalition_id:
-                    type: string
-                  election_year:
-                    type: integer
-              required:
-                - name
-                - coalition_id
-          application/xml:
-            schema:
-              type: object
-              properties:
-                chapa:
-                  name:
-                    type: string
-                  coalition_id:
-                    type: string
-                  election_year:
-                    type: integer
-              required:
-                - name
-                - coalition_id
-  "/chapas/{id}":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: id
-        in: path
-        required: true
-        description: ID of the chapa
-        schema:
-          type: string
-    get:
-      summary: Get a chapa
-      tags:
-        - Chapa
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: chapa found
-        "404":
-          description: chapa not found
-        "401":
-          description: unauthorized
-    patch:
-      summary: Update a chapa
-      tags:
-        - Chapa
-      security:
-        - Bearer: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: ID of the chapa
-          schema:
-            type: string
-      responses:
-        "200":
-          description: chapa created
-        "401":
-          description: unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                chapa:
-                  name:
-                    type: string
-                  coalition_id:
-                    type: string
-                  election_year:
-                    type: integer
-              required:
-                - name
-                - coalition_id
-          application/xml:
-            schema:
-              type: object
-              properties:
-                chapa:
-                  name:
-                    type: string
-                  coalition_id:
-                    type: string
-                  election_year:
-                    type: integer
-              required:
-                - name
-                - coalition_id
-    delete:
-      summary: Delete a chapa
-      tags:
-        - Chapa
-      security:
-        - Bearer: []
-      responses:
-        "204":
-          description: chapa deleted
-        "404":
-          description: chapa not found
-        "401":
-          description: unauthorized
-  "/chapas/destroy_multiple":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-    put:
-      summary: Destroy multiple chapas
-      tags:
-        - Chapa
-      security:
-        - Bearer: []
-      parameters: []
-      responses:
-        "200":
-          description: chapas destroyed
-        "401":
-          description: unauthorized
-  "/coalitions":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-    get:
-      summary: Get all coalitions
-      tags:
-        - Coligação
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: coalitions found
-        "401":
-          description: unauthorized
-    post:
-      summary: Create a coalition
-      tags:
-        - Coligação
-      security:
-        - Bearer: []
-      parameters: []
-      responses:
-        "201":
-          description: coalition created
-        "401":
-          description: unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                coalition:
-                  name:
-                    type: string
-                  acronym:
-                    type: string
-                  description:
-                    type: string
-                  location_id:
-                    type: number
-              required:
-                - name
-                - acronym
-                - location_id
-          application/xml:
-            schema:
-              type: object
-              properties:
-                coalition:
-                  name:
-                    type: string
-                  acronym:
-                    type: string
-                  description:
-                    type: string
-                  location_id:
-                    type: number
-              required:
-                - name
-                - acronym
-                - location_id
-  "/coalitions/{id}":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: id
-        in: path
-        required: true
-        description: ID of the coalition
-        schema:
-          type: string
-    get:
-      summary: Get a coalition
-      tags:
-        - Coligação
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: coalition found
-        "404":
-          description: coalition not found
-        "401":
-          description: unauthorized
-    delete:
-      summary: Delete a coalition
-      tags:
-        - Coligação
-      security:
-        - Bearer: []
-      responses:
-        "204":
-          description: coalition deleted
-        "404":
-          description: coalition not found
-        "401":
-          description: unauthorized
-  "/coalitions/destroy_multiple":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-    put:
-      summary: Destroy multiple coalitions
-      tags:
-        - Coligação
-      security:
-        - Bearer: []
-      parameters: []
-      responses:
-        "200":
-          description: coalitions destroyed
-        "401":
-          description: unauthorized
-  "/coalitions/{id}/update_photo":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: id
-        in: path
-        required: true
-        description: ID of the coalition
-        schema:
-          type: string
-    patch:
-      summary: Update a coalition's photo
-      tags:
-        - Coligação
-      security:
-        - Bearer: []
-      parameters: []
-      responses:
-        "200":
-          description: coalition photo updated
-        "401":
-          description: unauthorized
-  "/expected_votes":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-    get:
-      summary: Get all expected_votes
-      tags:
-        - Expectativa de Votos
-      security:
-        - Bearer: []
-      parameters:
-        - name: candidate_id
-          in: query
-          required: true
-          description: Expected Votes candidate id
-          schema:
-            type: string
-      responses:
-        "200":
-          description: expected_votes found
-        "404":
-          description: expected_votes candidate not found
-        "401":
-          description: unauthorized
-  "/expected_votes/{id}":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-    patch:
-      summary: Update a expected_vote
-      tags:
-        - Expectativa de Votos
-      security:
-        - Bearer: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: Expected Vote Count id
-          schema:
-            type: string
-      responses:
-        "200":
-          description: expected_vote updated
-        "401":
-          description: unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                expected_vote:
-                  votes:
-                    type: integer
-                  candidate_id:
-                    type: integer
-                  region_id:
-                    type: integer
-              required:
-                - votes
-                - candidate_id
-                - region_id
   "/locations":
     parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
+    - name: Authorization
+      in: header
+      required: true
+      description: Authorization token
+      schema:
+        type: string
+    - name: accept
+      in: header
+      required: true
+      description: Accept header
+      schema:
+        type: string
+    - name: Client
+      in: header
+      required: true
+      description: Client id
+      schema:
+        type: string
     get:
       summary: Get all locations
       tags:
-        - Município
+      - Município
       security:
-        - Bearer: []
+      - Bearer: []
       responses:
-        "200":
+        '200':
           description: locations found
-        "401":
+        '401':
           description: unauthorized
     post:
       summary: Create a location
       tags:
-        - Município
+      - Município
       security:
-        - Bearer: []
+      - Bearer: []
       parameters: []
       responses:
-        "201":
+        '201':
           description: location created
-        "401":
+        '401':
           description: unauthorized
       requestBody:
         content:
@@ -1037,10 +63,10 @@ paths:
                   longitude:
                     type: string
               required:
-                - city
-                - state
-                - latitude
-                - longitude
+              - city
+              - state
+              - latitude
+              - longitude
           application/xml:
             schema:
               type: object
@@ -1055,60 +81,60 @@ paths:
                   longitude:
                     type: string
               required:
-                - city
-                - state
-                - latitude
-                - longitude
+              - city
+              - state
+              - latitude
+              - longitude
   "/locations/{id}":
     parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
+    - name: Authorization
+      in: header
+      required: true
+      description: Authorization token
+      schema:
+        type: string
+    - name: accept
+      in: header
+      required: true
+      description: Accept header
+      schema:
+        type: string
+    - name: Client
+      in: header
+      required: true
+      description: Client id
+      schema:
+        type: string
     get:
       summary: Get a location
       tags:
-        - Município
+      - Município
       security:
-        - Bearer: []
+      - Bearer: []
       responses:
-        "200":
+        '200':
           description: location found
-        "404":
+        '404':
           description: location not found
-        "401":
+        '401':
           description: unauthorized
     patch:
       summary: Update a location
       tags:
-        - Município
+      - Município
       security:
-        - Bearer: []
+      - Bearer: []
       parameters:
-        - name: id
-          in: path
-          required: true
-          description: ID of the location
-          schema:
-            type: string
+      - name: id
+        in: path
+        required: true
+        description: ID of the location
+        schema:
+          type: string
       responses:
-        "200":
+        '200':
           description: location updated
-        "401":
+        '401':
           description: unauthorized
       requestBody:
         content:
@@ -1132,361 +158,23 @@ paths:
                   electoral_coefficient:
                     type: integer
               required: []
-  "/parties":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-    get:
-      summary: Get all parties
-      tags:
-        - Partido
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: parties found
-        "401":
-          description: unauthorized
-    post:
-      summary: Create a party
-      tags:
-        - Partido
-      security:
-        - Bearer: []
-      parameters: []
-      responses:
-        "201":
-          description: party created
-        "401":
-          description: unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                party:
-                  name:
-                    type: string
-                  acronym:
-                    type: string
-                  description:
-                    type: string
-                  number:
-                    type: integer
-              required:
-                - name
-                - acronym
-                - number
-          application/xml:
-            schema:
-              type: object
-              properties:
-                party:
-                  name:
-                    type: string
-                  acronym:
-                    type: string
-                  description:
-                    type: string
-                  number:
-                    type: integer
-              required:
-                - name
-                - acronym
-                - number
-  "/parties/{id}":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: id
-        in: path
-        required: true
-        description: ID of the party
-        schema:
-          type: string
-    get:
-      summary: Get a party
-      tags:
-        - Partido
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: party found
-        "404":
-          description: party not found
-        "401":
-          description: unauthorized
-    delete:
-      summary: Delete a party
-      tags:
-        - Partido
-      security:
-        - Bearer: []
-      responses:
-        "204":
-          description: party deleted
-        "404":
-          description: party not found
-        "401":
-          description: unauthorized
-  "/parties/destroy_multiple":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-    put:
-      summary: Destroy multiple parties
-      tags:
-        - Partido
-      security:
-        - Bearer: []
-      parameters: []
-      responses:
-        "200":
-          description: parties destroyed
-        "401":
-          description: unauthorized
-  "/parties/{id}/update_photo":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: id
-        in: path
-        required: true
-        description: ID of the party
-        schema:
-          type: string
-    patch:
-      summary: Update a party's photo
-      tags:
-        - Partido
-      security:
-        - Bearer: []
-      parameters: []
-      responses:
-        "200":
-          description: party photo updated
-        "401":
-          description: unauthorized
-  "/regions":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-    get:
-      summary: Get all regions
-      tags:
-        - Região
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: regions found
-        "401":
-          description: unauthorized
-    post:
-      summary: Create a region
-      tags:
-        - Região
-      security:
-        - Bearer: []
-      parameters: []
-      responses:
-        "201":
-          description: region created
-        "401":
-          description: unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                region:
-                  name:
-                    type: string
-                  zone:
-                    type: string
-                  latitude:
-                    type: number
-                  longitude:
-                    type: number
-                  location_id:
-                    type: number
-              required:
-                - name
-                - latitude
-                - longitude
-                - location_id
-          application/xml:
-            schema:
-              type: object
-              properties:
-                region:
-                  name:
-                    type: string
-                  zone:
-                    type: string
-                  latitude:
-                    type: number
-                  longitude:
-                    type: number
-                  location_id:
-                    type: number
-              required:
-                - name
-                - latitude
-                - longitude
-                - location_id
-  "/regions/{id}":
-    parameters:
-      - name: Authorization
-        in: header
-        required: true
-        description: Authorization token
-        schema:
-          type: string
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
-      - name: Client
-        in: header
-        required: true
-        description: Client id
-        schema:
-          type: string
-      - name: id
-        in: path
-        required: true
-        description: ID of the region
-        schema:
-          type: string
-    get:
-      summary: Get a region
-      tags:
-        - Região
-      security:
-        - Bearer: []
-      responses:
-        "200":
-          description: region found
-        "404":
-          description: region not found
-        "401":
-          description: unauthorized
-    delete:
-      summary: Delete a region
-      tags:
-        - Região
-      security:
-        - Bearer: []
-      responses:
-        "204":
-          description: region deleted
-        "404":
-          description: region not found
-        "401":
-          description: unauthorized
   "/users":
     parameters:
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
+    - name: accept
+      in: header
+      required: true
+      description: Accept header
+      schema:
+        type: string
     post:
       summary: Create a user
       tags:
-        - Usuário
+      - Usuário
       parameters: []
       responses:
-        "201":
+        '201':
           description: user created
-        "401":
+        '401':
           description: unauthorized
       requestBody:
         content:
@@ -1512,37 +200,37 @@ paths:
                 client_secret:
                   type: string
               required:
-                - email
-                - first_name
-                - last_name
-                - password
-                - password_confirmation
-                - default_location_id
-                - client_id
-                - client_secret
+              - email
+              - first_name
+              - last_name
+              - password
+              - password_confirmation
+              - default_location_id
+              - client_id
+              - client_secret
     patch:
       summary: Edit a user
       tags:
-        - Usuário
+      - Usuário
       security:
-        - Bearer: []
+      - Bearer: []
       parameters:
-        - name: Client
-          in: header
-          required: true
-          description: Client id
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          required: true
-          description: Authorization token
-          schema:
-            type: string
+      - name: Client
+        in: header
+        required: true
+        description: Client id
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        description: Authorization token
+        schema:
+          type: string
       responses:
-        "200":
+        '200':
           description: user edited
-        "401":
+        '401':
           description: unauthorized
       requestBody:
         content:
@@ -1560,65 +248,65 @@ paths:
               required: []
   "/users/me":
     parameters:
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
+    - name: accept
+      in: header
+      required: true
+      description: Accept header
+      schema:
+        type: string
     get:
       summary: Get current user
       tags:
-        - Usuário
+      - Usuário
       parameters:
-        - name: Client
-          in: header
-          required: true
-          description: Client id
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          required: true
-          description: Authorization token
-          schema:
-            type: string
+      - name: Client
+        in: header
+        required: true
+        description: Client id
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        description: Authorization token
+        schema:
+          type: string
       responses:
-        "200":
+        '200':
           description: user found
-        "401":
+        '401':
           description: unauthorized
   "/users/update_password":
     parameters:
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
+    - name: accept
+      in: header
+      required: true
+      description: Accept header
+      schema:
+        type: string
     patch:
       summary: Edit user password
       tags:
-        - Usuário
+      - Usuário
       security:
-        - Bearer: []
+      - Bearer: []
       parameters:
-        - name: Client
-          in: header
-          required: true
-          description: Client id
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          required: true
-          description: Authorization token
-          schema:
-            type: string
+      - name: Client
+        in: header
+        required: true
+        description: Client id
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        description: Authorization token
+        schema:
+          type: string
       responses:
-        "200":
+        '200':
           description: user password edited
-        "401":
+        '401':
           description: unauthorized
       requestBody:
         content:
@@ -1634,65 +322,65 @@ paths:
                   password_confirmation:
                     type: string
               required:
-                - current_password
-                - password
-                - password_confirmation
+              - current_password
+              - password
+              - password_confirmation
   "/users/update_avatar":
     parameters:
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
+    - name: accept
+      in: header
+      required: true
+      description: Accept header
+      schema:
+        type: string
     patch:
       summary: Edit user avatar
       tags:
-        - Usuário
+      - Usuário
       security:
-        - Bearer: []
+      - Bearer: []
       parameters:
-        - name: Client
-          in: header
-          required: true
-          description: Client id
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          required: true
-          description: Authorization token
-          schema:
-            type: string
+      - name: Client
+        in: header
+        required: true
+        description: Client id
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        description: Authorization token
+        schema:
+          type: string
       responses:
-        "200":
+        '200':
           description: user avatar edited
-        "401":
+        '401':
           description: unauthorized
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: file
         required: true
         description: New photo image for the user
   "/oauth/token":
     parameters:
-      - name: accept
-        in: header
-        required: true
-        description: Accept header
-        schema:
-          type: string
+    - name: accept
+      in: header
+      required: true
+      description: Accept header
+      schema:
+        type: string
     post:
       summary: Login user with email and password
       tags:
-        - Sessão
+      - Sessão
       parameters: []
       responses:
-        "200":
+        '200':
           description: logged in
-        "401":
+        '401':
           description: unauthorized
       requestBody:
         content:
@@ -1711,20 +399,20 @@ paths:
                 client_secret:
                   type: string
               required:
-                - email
-                - password
-                - client_id
-                - client_secret
+              - email
+              - password
+              - client_id
+              - client_secret
   "/oauth/revoke":
     post:
       summary: Logout user
       tags:
-        - Sessão
+      - Sessão
       parameters: []
       responses:
-        "200":
+        '200':
           description: logged in
-        "403":
+        '403':
           description: forbiden
       requestBody:
         content:
@@ -1741,11 +429,11 @@ paths:
                 client_secret:
                   type: string
               required:
-                - token
-                - client_id
-                - client_secret
+              - token
+              - client_id
+              - client_secret
 servers:
-  - url: https://api-contact-hub.bruno.buzz/api/v1
-    variables:
-      defaultHost:
-        default: localhost:8000
+- url: https://api-contact-hub.bruno.buzz/api/v1
+  variables:
+    defaultHost:
+      default: localhost:8000
