@@ -4,14 +4,12 @@ export interface AppState {
   language: "pt";
   loadedMapsScript: boolean;
   loadMapsScriptError: boolean;
-  openNav: boolean;
 }
 
 const initialState: AppState = {
   language: "pt",
   loadedMapsScript: false,
   loadMapsScriptError: false,
-  openNav: false,
 };
 
 const appSlice = createSlice({
@@ -21,12 +19,9 @@ const appSlice = createSlice({
     setLoadScript(state, { payload }: { payload: boolean }) {
       state.loadedMapsScript = payload;
     },
-    setOpenNav(state, { payload }: { payload: boolean }) {
-      state.openNav = payload;
-    },
   },
 });
 
-export const { setLoadScript, setOpenNav } = appSlice.actions;
+export const { setLoadScript } = appSlice.actions;
 
 export default appSlice.reducer;

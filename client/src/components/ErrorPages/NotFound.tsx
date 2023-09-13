@@ -3,7 +3,7 @@ import NavigateBackButton from "../Shared/Buttons/NavigateBackButton";
 
 const NotFound = () => {
   return (
-    <div className="flex flex-col justify-center items-center min-h-[80svh] px-6 xl:px-0">
+    <div className="flex flex-col justify-center items-center min-h-[75svh] px-6 xl:px-0">
       <div className="block md:max-w-lg">
         <img src={NotFoundImg} alt="404" />
       </div>

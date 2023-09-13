@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../store";
-import { logoutUser } from "../../../features/sessions/sessionSlice";
+import { RootState } from "../../store";
+import { logoutUser } from "../../features/sessions/sessionSlice";
 import { NavLink } from "react-router-dom";
 
 const UserMenu: React.FC = () => {

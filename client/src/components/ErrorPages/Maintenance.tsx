@@ -3,7 +3,7 @@ import NavigateBackButton from "../Shared/Buttons/NavigateBackButton";
 
 const Maintenance = () => {
   return (
-    <div className="flex flex-col justify-center items-center min-h-[80svh] px-6 xl:px-0">
+    <div className="flex flex-col justify-center items-center min-h-[75svh] px-6 xl:px-0">
       <div className="block mb-5 md:max-w-md">
         <img src={MaintenanceImg} alt="maintenance image" />
       </div>
