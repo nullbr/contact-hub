@@ -23,5 +23,9 @@ RSpec.describe Api::V1::Users::RegistrationsController, type: :routing do
     it 'routes to #update_avatar via PATCH' do
       expect(patch: 'api/v1/users/update_avatar').to route_to('api/v1/users/registrations#update_avatar')
     end
+
+    it 'routes to #destroy via DELETE' do
+      expect(delete: 'api/v1/users').to route_to('api/v1/users/registrations#destroy')
+    end
   end
 end

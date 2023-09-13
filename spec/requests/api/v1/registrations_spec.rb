@@ -208,5 +208,28 @@ describe 'Usuário API' do
       include_context 'common responses'
     end
   end
+
+  # DELETE /users
+  # Delete current user
+  path '/users' do
+    include_context 'common parameters'
+    delete 'Delete current user' do
+      tags 'Usuário'
+      consumes 'application/json'
+      security [Bearer: []]
+      parameter name: :Client, in: :header, type: :string, required: true,
+                description: 'Client id'
+      parameter name: :Authorization, in: :header, type: :string, required: true,
+                description: 'Authorization token'
+
+      response '200', 'user deleted' do
+        let(:Authorization) { @access_token }
+        let(:Client) { @client_id }
+        let(:accept) { 'application/json' }
+
+        run_test!
+      end
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

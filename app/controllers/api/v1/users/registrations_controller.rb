@@ -80,6 +80,17 @@ module Api
           end
         end
 
+        # DELETE /users -> DESTROY
+        def destroy
+          @user = current_user
+
+          if @user.destroy
+            render json: {}, status: :ok
+          else
+            render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+          end
+        end
+
         private
 
         def user_params

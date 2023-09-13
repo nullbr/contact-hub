@@ -112,8 +112,6 @@ export async function editUserWithToken(
   if (payload?.firstName) data.registration.first_name = payload.firstName;
   if (payload?.lastName) data.registration.last_name = payload.lastName;
   if (payload?.email) data.registration.email = payload.email;
-  if (payload?.defaultLocationId)
-    data.registration.default_location_id = payload.defaultLocationId;
 
   const config = {
     headers: {
@@ -178,20 +176,15 @@ export async function editAvatar({
     .catch((error) => error.response.data);
 }
 
-// export async function signUpUser(credentials: Credentials) {
-//   const data = {
-//     registration: {
-//       first_name: credentials?.firstName,
-//       last_name: credentials?.lastName,
-//       email: credentials?.email,
-//       password: credentials?.password,
-//       password_confirmation: credentials?.passwordConfirmation,
-//     },
-//     client_id: CLIENT_ID,
-//   };
+export async function deleteUserWithToken(
+  accessToken: string
+): Promise<UserResponse> {
+  const config = {
+    headers: { Authorization: `Bearer ${accessToken}`, Client: CLIENT_ID },
+  };
 
-//   return axiosInstance
-//     .post(SIGNUP_URL, data)
-//     .then((response) => response.data)
-//     .catch((error) => error.response.data);
-// }
+  return axiosInstance
+    .delete(EDIT_USER_URL, config)
+    .then((response) => response.data)
+    .catch((error) => error.response.data);
+}

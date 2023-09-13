@@ -4,9 +4,10 @@ import PageHeader from "../../Shared/Template/PageHeader";
 import UserForm from "./UserForm";
 import PasswordForm from "./PasswordForm";
 import ImageUploader from "./ImageUploader";
+import { DeleteUser } from "./DeleteUser";
 
 const EditUser = () => {
-  const { currentUser, accessToken } = useSelector(
+  const { currentUser, accessToken, refreshToken } = useSelector(
     (store: RootState) => store.sessions
   );
 
@@ -26,10 +27,13 @@ const EditUser = () => {
             <UserForm currentUser={currentUser} accessToken={accessToken} />
             {/* password form */}
             <PasswordForm accessToken={accessToken} />
+            {/* delete user */}
+            <DeleteUser accessToken={accessToken} refreshToken={refreshToken} />
           </div>
         </div>
       </div>
     </>
   );
 };
+
 export default EditUser;

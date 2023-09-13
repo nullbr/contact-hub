@@ -6,6 +6,7 @@ namespace :api do
       get '/me', to: 'registrations#me'
       post '/', to: 'registrations#create', as: :user_registration
       patch '/', to: 'registrations#edit', as: :edit_user
+      delete '/', to: 'registrations#destroy', as: :destroy_user
       patch '/update_password', to: 'registrations#update_password'
       patch '/update_avatar', to: 'registrations#update_avatar'
     end
