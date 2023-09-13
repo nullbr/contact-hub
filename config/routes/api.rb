@@ -12,6 +12,12 @@ namespace :api do
     end
 
     resources :locations, only: %i[index show create update]
+
+    resources :contacts do
+      collection do
+        put :destroy_multiple
+      end
+    end
   end
 end
 

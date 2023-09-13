@@ -26,4 +26,33 @@ RSpec.describe Contact, type: :model do
   describe 'factory' do
     it { expect(build(:contact)).to be_valid }
   end
+
+  describe 'scopes' do
+    it 'should return contacts with name or cpf' do
+      contact = create(:contact, name: 'John Doe', cpf: '12345678901')
+      create(:contact, name: 'Jane Doe', cpf: '98765432109')
+
+      expect(Contact.with_name('John Doe')).to eq([contact])
+      expect(Contact.with_name('12345678901')).to eq([contact])
+    end
+  end
+
+  describe 'custom methods' do
+    before do
+      10.times do |i|
+        create(:contact, name: "Contact #{i}")
+      end
+    end
+
+    it 'should return contacts ordered by name' do
+      contact = Contact.order(:name).first
+
+      expect(Contact.search.first).to eq(contact)
+    end
+
+    it 'should return contacts ordered by cpf' do
+      contact = Contact.order(:cpf).first
+      expect(Contact.search({ sort: 'cpf' }).first).to eq(contact)
+    end
+  end
 end

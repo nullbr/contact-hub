@@ -15,6 +15,7 @@ import PersistLogin from "./components/Sessions/PersistLogin";
 import Maintenance from "./components/ErrorPages/Maintenance";
 import NotFound from "./components/ErrorPages/NotFound";
 import SignUp from "./components/Sessions/SignUp";
+import Contacts from "./components/Contacts";
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route element={<Layout />}>
             <Route path="/session" element={<EditUser />} />
+
+            <Route path="/contatos" element={<Contacts />} />
 
             <Route path="/documentos" element={<Maintenance />} />
 
