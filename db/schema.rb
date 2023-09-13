@@ -39,6 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_224354) do
   create_table "locations", force: :cascade do |t|
     t.string "city", null: false
     t.string "state", null: false
+    t.string "country", null: false
     t.integer "zip_code", null: false
     t.float "latitude", null: false
     t.float "longitude", null: false

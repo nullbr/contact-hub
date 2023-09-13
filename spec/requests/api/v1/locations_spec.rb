@@ -100,11 +100,13 @@ describe 'Município API' do
           location: {
             city: { type: :string },
             state: { type: :string },
+            country: { type: :string },
+            zip_code: { type: :string },
             latitude: { type: :string },
             longitude: { type: :string }
           }
         },
-        required: %w[city state latitude longitude]
+        required: %w[city state country zip_code latitude longitude]
       }
 
       response '201', 'location created' do

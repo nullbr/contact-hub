@@ -50,7 +50,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def location_params
-        location_params = params.require(:location).permit(:city, :state, :zip_code, :latitude, :longitude)
+        location_params = params.require(:location).permit(:city, :state, :country, :zip_code, :latitude, :longitude)
 
         location_params[:city] = location_params[:city].downcase if location_params[:city].present?
         location_params[:state] = location_params[:state]&.downcase if location_params[:state].present?
