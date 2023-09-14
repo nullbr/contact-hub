@@ -1,25 +1,20 @@
-import PageHeader from "../Shared/Template/PageHeader";
 import SearchBar from "../Shared/ResourceData/SearchBar";
 import Table from "./Table";
-import EditModal from "./EditModal";
-import AddModal from "./AddModal";
-import DeleteModal from "./DeleteModal";
+// import EditModal from "./EditModal";
+// import AddModal from "./AddModal";
+// import DeleteModal from "./DeleteModal";
 import { useQuery } from "@tanstack/react-query";
-import { getContacts } from "../../api/contacts/contacts";
+import { getContacts } from "../../api/contacts";
 import { RootState } from "../../store";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import useDebounce from "../../utils/Hooks/useDebounce";
 import NavPagination from "../Shared/ResourceData/NavPagination";
-import { ContactsResponse } from "../../types/contact";
 import { AxiosError } from "axios";
 import Paper from "../Shared/Template/Paper";
 import ResponseError from "../../utils/Errors/ResponseError";
-import { feedResources } from "../../features/table/tableSlice";
 
 const Contacts = () => {
-  const dispatch = useDispatch() as any;
-
   // queryParams
   const [sortParams, setSortParams] = useState<{
     sort?: string;
@@ -50,13 +45,6 @@ const Contacts = () => {
   const { status, data } = useQuery({
     queryKey: ["contacts", queryParams],
     queryFn: () => getContacts(queryParams),
-    onSuccess: (response: ContactsResponse) => {
-      // feed table slice with contacts ids
-      if (response.owned_ids)
-        dispatch(
-          feedResources({ ownerId: null, ids: response.owned_ids || [] })
-        );
-    },
     onError: (err: AxiosError) => ResponseError({ err }),
     keepPreviousData: true,
     refetchOnMount: true,
@@ -66,20 +54,15 @@ const Contacts = () => {
   // mount page
   useEffect(() => {
     // set page title
-    document.title = "Contacts | Contact Hub";
-
-    // feed table slice with contacts ids
-    if (data?.owned_ids)
-      dispatch(feedResources({ ownerId: null, ids: data.owned_ids || [] }));
+    document.title = "Contatos | Contact Hub";
   }, []);
 
   return (
     <>
-      <PageHeader title="Contacts" />
       <Paper cls="block overflow-hidden p-0 sm:p-0">
         <SearchBar
           resource="contact"
-          resourceName="contact"
+          resourceName="contato"
           setSearchQuery={setSearchQuery}
         />
 
@@ -89,9 +72,9 @@ const Contacts = () => {
           setSortParams={setSortParams}
         />
 
-        {editModal && <EditModal />}
-        {deleteModal.length > 0 && <DeleteModal />}
-        {addModal && <AddModal />}
+        {/* {editModal && <EditModal />} */}
+        {/* {deleteModal.length > 0 && <DeleteModal />} */}
+        {/* {addModal && <AddModal />} */}
 
         {status === "success" && (
           <NavPagination

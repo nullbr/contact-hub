@@ -13,8 +13,6 @@ module Api
         all_contacts = current_user.contacts.search(params)
         @pagy, @contacts = pagy(all_contacts, items: params[:per_page] || 15,
                                               page: params[:page] || 1)
-
-        @owned_ids = all_contacts.pluck(:id)
       end
 
       # GET /contacts/1

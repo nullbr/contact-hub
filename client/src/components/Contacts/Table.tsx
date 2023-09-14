@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { ContactsResponse } from "../../types/contact";
+import { ContactsResponse } from "../../types/contacts";
 import ColumnHeader from "../Shared/ResourceData/ColumnHeader";
 import { toggleSelectAll } from "../../features/table/tableSlice";
 import { RootState } from "../../store";
@@ -80,7 +80,7 @@ const Table = ({
               {data?.count === 0 && (
                 <tr>
                   <td colSpan={5} className="p-4 text-center">
-                    Nenhuma contact encontrada.
+                    Nenhuma contato encontrada.
                   </td>
                 </tr>
               )}

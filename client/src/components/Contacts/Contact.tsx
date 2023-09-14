@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { ContactParams } from "../../types/contact";
+import { ContactParams } from "../../types/contacts";
 import { setDeleteModal, setSelected } from "../../features/table/tableSlice";
 import DeleteButton from "../Shared/Buttons/DeleteButton";
-import ViewButton from "../Shared/Buttons/ViewButton";
 import { Link } from "react-router-dom";
 import EditButton from "../Shared/Buttons/EditButton";
 
@@ -32,16 +31,12 @@ const Contact = ({ contact }: { contact: ContactParams }) => {
         {contact.name}
       </td>
       <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap capitalize">
-        {contact.coalition?.acronym}
+        {contact.location.city}
       </td>
       <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap capitalize">
-        {contact.election_year}
+        {contact.location.state}
       </td>
       <td className="p-4 space-x-2 whitespace-nowrap">
-        <Link to={`/contacts/${contact.id}`}>
-          <ViewButton actionFn={() => {}} />
-        </Link>
-
         <Link to={`/contacts/${contact.id}/editar`}>
           <EditButton actionFn={() => {}} />
         </Link>

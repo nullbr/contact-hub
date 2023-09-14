@@ -39,9 +39,7 @@ const tableSlice = createSlice({
     },
     feedResources: (
       state,
-      {
-        payload: { ids },
-      }: { payload: { ids: number[]; ownerId: number | null } }
+      { payload: { ids } }: { payload: { ids: number[] } }
     ) => {
       state.resources = ids;
     },

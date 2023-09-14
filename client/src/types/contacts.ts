@@ -26,15 +26,19 @@ export interface ContactsResponse {
 }
 
 export interface CreateContactPayload {
-  name: string;
-  cpf: string;
-  phone_number: string;
+  contact: {
+    name: string;
+    cpf: string;
+    phone_number: string;
+  };
   location: LocationPayload;
 }
 
 export interface EditContactPayload {
-  name?: string;
-  cpf?: string;
-  phone_number?: string;
+  contact: {
+    name?: string;
+    cpf?: string;
+    phone_number?: string;
+  };
   location?: LocationPayload;
 }

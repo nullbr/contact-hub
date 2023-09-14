@@ -64,7 +64,8 @@ export async function editContact({
   payload: EditContactPayload;
 }): Promise<ContactResponse> {
   const data = {
-    contact: { ...payload },
+    contact: payload.contact,
+    location: payload.location,
   };
 
   const config = {
@@ -88,8 +89,13 @@ export async function createContact({
     headers: { Authorization: `Bearer ${accessToken}`, Client: CLIENT_ID },
   };
 
+  const data = {
+    contact: payload.contact,
+    location: payload.location,
+  };
+
   return axiosInstance
-    .post(CHAPA_URL, payload, config)
+    .post(CHAPA_URL, data, config)
     .then((response) => response.data);
 }
 

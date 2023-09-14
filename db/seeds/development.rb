@@ -25,3 +25,35 @@ if User.count.zero?
     role: :user
   )
 end
+
+# add locations if there is no location
+if Location.count.zero?
+  locations = Array.new(100) do
+    {
+      address: Faker::Address.street_address,
+      city: Faker::Address.city,
+      state: Faker::Address.state,
+      country: Faker::Address.country,
+      zip_code: Faker::Address.zip_code,
+      latitude: Faker::Address.latitude,
+      longitude: Faker::Address.longitude
+    }
+  end
+
+  Location.create!(locations)
+end
+
+# add contacts if there is no contact
+if Contact.count.zero?
+  contacts = Array.new(100) do
+    {
+      name: Faker::Name.name,
+      cpf: Faker::IDNumber.brazilian_citizen_number,
+      phone_number: Faker::Number.number(digits: 11),
+      user_id: User.all.sample.id,
+      location_id: Location.all.sample.id
+    }
+  end
+
+  Contact.create!(contacts)
+end
