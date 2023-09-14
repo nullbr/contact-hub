@@ -5,10 +5,9 @@ const EditButton = ({ actionFn }: { actionFn: () => void }) => {
     <button
       type="button"
       onClick={actionFn}
-      className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 shadow-sm"
+      className="group inline-flex justify-center items-center h-8 w-8 text-sm font-medium text-center border border-primary-600 rounded-lg hover:border-primary-800 focus:ring-4 focus:ring-red-300 shadow-sm transition duration-200"
     >
-      <EditIcon cls="w-4 h-4 my-1" />
-      <p className="hidden xl:block sm:ml-2">Editar</p>
+      <EditIcon cls="h-full w-auto py-1.5 group-hover:py-1 text-primary-600 group-hover:text-primary-800 transition duration-200" />
     </button>
   );
 };

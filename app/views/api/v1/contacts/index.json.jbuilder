@@ -5,3 +5,5 @@ json.contacts do
 end
 
 json.partial! 'api/v1/shared/pagination', pagy: @pagy
+
+json.ids @contacts.pluck(:id)

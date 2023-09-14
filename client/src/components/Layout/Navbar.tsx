@@ -4,7 +4,7 @@ import Logo from "../../assets/images/logo.png";
 
 export default function Navbar() {
   return (
-    <nav className="fixed inset-x-0 top-0 z-40 w-full border-b border-gray-200  bg-white/50 backdrop-blur x-3 py-3 lg:px-5 lg:pl-3 flex items-center justify-between">
+    <nav className="fixed inset-x-0 top-0 z-40 w-full border-b border-gray-200  bg-white/50 backdrop-blur x-3 py-3 px-4 flex items-center justify-between">
       {/* left side */}
       <div className="flex items-center justify-start">
         {/* home button */}

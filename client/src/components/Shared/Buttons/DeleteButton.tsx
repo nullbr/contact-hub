@@ -5,10 +5,9 @@ const DeleteButton = ({ actionFn }: { actionFn: () => void }) => {
     <button
       type="button"
       onClick={actionFn}
-      className="inline-flex justify-center items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 shadow-sm"
+      className="group inline-flex justify-center items-center h-8 w-8 text-sm font-medium text-center border border-red-600 rounded-lg hover:border-red-800 focus:ring-4 focus:ring-red-300 shadow-sm transition duration-200"
     >
-      <DeleteIcon cls="w-4 h-4 my-1" />
-      <p className="hidden xl:block sm:ml-2">Excluir</p>
+      <DeleteIcon cls="h-full w-auto py-1.5 group-hover:py-1 text-red-600 group-hover:text-red-800 transition duration-200" />
     </button>
   );
 };

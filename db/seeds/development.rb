@@ -44,16 +44,15 @@ if Location.count.zero?
 end
 
 # add contacts if there is no contact
-if Contact.count.zero?
-  contacts = Array.new(100) do
-    {
-      name: Faker::Name.name,
-      cpf: Faker::IDNumber.brazilian_citizen_number,
-      phone_number: Faker::Number.number(digits: 11),
-      user_id: User.all.sample.id,
-      location_id: Location.all.sample.id
-    }
-  end
 
-  Contact.create!(contacts)
+contacts = Array.new(100) do
+  {
+    name: Faker::Name.name,
+    cpf: Faker::IDNumber.brazilian_citizen_number,
+    phone_number: Faker::Number.number(digits: 11),
+    user_id: User.all.sample.id,
+    location_id: Location.all.sample.id
+  }
 end
+
+Contact.create!(contacts)

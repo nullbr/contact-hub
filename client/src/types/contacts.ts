@@ -23,6 +23,7 @@ export interface ContactsResponse {
   count: number;
   from: number;
   to: number;
+  ids: number[];
 }
 
 export interface CreateContactPayload {

@@ -22,7 +22,7 @@ const initialState: SelectState = {
   editModal: null,
   deleteModal: [],
   addModal: false,
-  perPage: "10",
+  perPage: "200",
   page: 1,
 };
 
@@ -37,11 +37,8 @@ const tableSlice = createSlice({
       state.perPage = "10";
       state.page = 1;
     },
-    feedResources: (
-      state,
-      { payload: { ids } }: { payload: { ids: number[] } }
-    ) => {
-      state.resources = ids;
+    feedResources: (state, { payload }: { payload: number[] }) => {
+      state.resources = payload;
     },
     toggleSelectAll: (state) => {
       state.selected = !state.selectAll ? state.resources : [];

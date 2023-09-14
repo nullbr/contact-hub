@@ -69,7 +69,6 @@ const SearchBar = ({
                 actionFn={() =>
                   dispatch(setAddModal({ state: true, resource: resource }))
                 }
-                resourceName={resourceName}
               />
             </div>
           )}

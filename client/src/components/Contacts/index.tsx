@@ -6,17 +6,19 @@ import DeleteModal from "./DeleteModal";
 import { useQuery } from "@tanstack/react-query";
 import { getContacts } from "../../api/contacts";
 import { RootState } from "../../store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import useDebounce from "../../utils/Hooks/useDebounce";
-import NavPagination from "../Shared/ResourceData/NavPagination";
 import { AxiosError } from "axios";
 import Paper from "../Shared/Template/Paper";
 import ResponseError from "../../utils/Errors/ResponseError";
 import Map from "../Shared/Map";
 import { useMediaQuery } from "../../utils/Hooks/useMediaQuery";
+import { feedResources } from "../../features/table/tableSlice";
+import { ContactsResponse } from "../../types/contacts";
 
 const Contacts = () => {
+  const dispatch = useDispatch() as any;
   const isMobile = useMediaQuery("(max-width: 640px)");
 
   // queryParams
@@ -46,9 +48,11 @@ const Contacts = () => {
     debounceSearch,
   };
 
-  const { status, data } = useQuery({
+  const { data } = useQuery({
     queryKey: ["contacts", debounceSearch],
     queryFn: () => getContacts(queryParams),
+    onSuccess: (response: ContactsResponse) =>
+      dispatch(feedResources(response.ids)),
     onError: (err: AxiosError) => ResponseError({ err }),
     keepPreviousData: true,
     refetchOnMount: true,
@@ -63,8 +67,9 @@ const Contacts = () => {
   }, []);
 
   return (
-    <article className="grid sm:grid-rows-2 xl:grid-rows-1 xl:grid-cols-2 gap-4 sm:absolute top-0 left-0 w-full sm:h-[100svh] sm:px-4 sm:pt-[4.5rem] sm:pb-14 sm:overflow-hidden">
-      <Paper cls="block overflow-hidden p-0 sm:p-0">
+    <article className="grid sm:grid-rows-2 xl:grid-rows-1 xl:grid-cols-2 gap-4 sm:absolute top-0 left-0 w-full sm:h-[100svh] sm:px-4 sm:pt-[4.5rem] sm:pb-14">
+      {/* right side */}
+      <Paper cls="block p-0 sm:p-0 overflow-y-auto">
         <SearchBar
           resource="contact"
           resourceName="contato"
@@ -80,20 +85,9 @@ const Contacts = () => {
         {editModal && <EditModal />}
         {deleteModal.length > 0 && <DeleteModal />}
         {/* {addModal && <AddModal />} */}
-
-        {status === "success" && (
-          <NavPagination
-            page={data?.page}
-            pages={data?.pages}
-            count={data?.count}
-            next={data?.next}
-            prev={data?.prev}
-            from={data?.from}
-            to={data?.to}
-          />
-        )}
       </Paper>
 
+      {/* left side */}
       <Map
         cls="hidden sm:block mb-4"
         height={isMobile ? "h-72" : "h-full"}

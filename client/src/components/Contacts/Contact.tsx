@@ -30,17 +30,17 @@ const Contact = ({ contact }: { contact: ContactParams }) => {
           </label>
         </div>
       </td>
-      <td className="p-4 mr-12 space-x-6 whitespace-nowrap text-base font-semibold text-gray-900 capitalize">
+      <td className="p-2 mr-12 space-x-6 whitespace-nowrap text-sm font-semibold text-gray-900 capitalize">
         {contact.name}
       </td>
-      <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap capitalize">
+      <td className="p-2 text-sm text-gray-900 whitespace-nowrap capitalize">
         {contact.phone_number}
       </td>
-      <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap">
+      <td className="p-2 text-sm text-gray-900 whitespace-nowrap">
         {contact.location.city},{" "}
         <span className="capitalize">{contact.location.state}</span>
       </td>
-      <td className="p-4 space-x-2 whitespace-nowrap">
+      <td className="p-2 space-x-2 whitespace-nowrap">
         <EditButton
           actionFn={() =>
             dispatch(setEditModal({ resource: "contact", state: contact.id }))
