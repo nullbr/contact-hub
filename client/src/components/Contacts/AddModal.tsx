@@ -1,11 +1,10 @@
 import { toast } from "react-hot-toast";
-import { createContact } from "../../api/contacts/contacts";
+import { createContact } from "../../api/contacts";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ContactPayload } from "../../types/contact";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { CreateContactPayload } from "../../types/contacts";
 import { AxiosError } from "axios";
-import { getCoalitions } from "../../api/coalitions";
 import { setAddModal } from "../../features/table/tableSlice";
 import { LoaderIcon } from "../../assets/icons/loaderIcon";
 import Modal from "../Shared/Template/Modal";
@@ -18,18 +17,7 @@ const AddModal = () => {
   const navigate = useNavigate();
 
   // modal state
-  const { addModal } = useSelector((state: RootState) => state.table);
   const dispatch = useDispatch() as any;
-
-  // query options for coalition
-  const coalitionsQuery = useQuery({
-    queryKey: ["coalitions", { accessToken }],
-    queryFn: () => getCoalitions({ accessToken, perPage: "100" }),
-    onError: (err: AxiosError) => ResponseError({ err }),
-    enabled: !!addModal,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
 
   // mutate contact
   const contactMutation = useMutation({
@@ -55,26 +43,33 @@ const AddModal = () => {
     const formData = new FormData(event.currentTarget);
     const entries = Object.fromEntries(formData.entries()) as {
       name: string;
-      election_year: string;
-      coalition: string;
+      phone_number: string;
+      cpf: string;
     };
 
     // validate required fields
-    if (!entries.name && entries.name === "") {
-      toast.error("Nome é obrigatório");
-      return;
-    }
+    if (!entries.name && entries.name === "")
+      return toast.error("Nome é obrigatório");
 
-    if (!entries.coalition && entries.coalition === "") {
-      toast.error("Coligação é obrigatório");
-      return;
-    }
+    if (!entries.phone_number && entries.phone_number === "")
+      return toast.error("Número de telefone é obrigatório");
 
     // submit form data
-    const payload: ContactPayload = {
-      name: entries.name,
-      election_year: Number(entries.election_year),
-      coalition_id: Number(entries.coalition),
+    const payload: CreateContactPayload = {
+      contact: {
+        name: entries.name,
+        phone_number: entries.phone_number,
+        cpf: entries.cpf,
+      },
+      location: {
+        address: "São Paulo, SP, Brasil",
+        city: "São Paulo",
+        state: "SP",
+        country: "Brasil",
+        zip_code: "01000-000",
+        latitude: -23.5505199,
+        longitude: -46.6333094,
+      },
     };
 
     contactMutation.mutate({
@@ -131,47 +126,49 @@ const AddModal = () => {
                 name="name"
                 id="name"
                 className="form-input"
-                placeholder="Contact 1"
+                placeholder="Contato"
                 required
               />
             </div>
+
             <div className="col-span-6 sm:col-span-3">
               <label
-                htmlFor="election_year"
+                htmlFor="phone_number"
                 className="block mb-2 text-sm font-medium text-gray-900"
               >
-                Ano da Eleição
+                Número de Telefone
               </label>
+
               <input
-                type="number"
-                name="election_year"
-                id="election_year"
+                type="text"
+                name="phone_number"
+                id="phone_number"
                 className="form-input"
-                placeholder="2024"
+                placeholder="(00) 00000-0000"
               />
             </div>
+
             <div className="col-span-6 sm:col-span-3">
               <label
-                htmlFor="coalition"
+                htmlFor="cpf"
                 className="block mb-2 text-sm font-medium text-gray-900"
               >
-                Coligação
+                CPF
               </label>
-              <select id="coalition" name="coalition" className="form-select">
-                <option value="">Selecione uma coligação</option>
-                {!coalitionsQuery.isLoading &&
-                  coalitionsQuery.data?.coalitions?.map((coalition) => (
-                    <option key={coalition.id} value={coalition.id}>
-                      {coalition.name} ({coalition.acronym})
-                    </option>
-                  ))}
-              </select>
+
+              <input
+                type="text"
+                name="cpf"
+                id="cpf"
+                className="form-input"
+                placeholder="(00) 00000-0000"
+              />
             </div>
           </div>
           {/* <!-- Modal footer --> */}
           <div className="flex justify-end pt-6 border-t border-gray-200 rounded-b mt-6">
             <button
-              disabled={contactMutation.isLoading || coalitionsQuery.isLoading}
+              disabled={contactMutation.isLoading}
               type="submit"
               className={`flex rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white ${
                 contactMutation.isLoading

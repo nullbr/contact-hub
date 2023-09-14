@@ -1,7 +1,7 @@
 import SearchBar from "../Shared/ResourceData/SearchBar";
 import Table from "./Table";
 import EditModal from "./EditModal";
-// import AddModal from "./AddModal";
+import AddModal from "./AddModal";
 import DeleteModal from "./DeleteModal";
 import { useQuery } from "@tanstack/react-query";
 import { getContacts } from "../../api/contacts";
@@ -84,7 +84,7 @@ const Contacts = () => {
 
         {editModal && <EditModal />}
         {deleteModal.length > 0 && <DeleteModal />}
-        {/* {addModal && <AddModal />} */}
+        {addModal && <AddModal />}
       </Paper>
 
       {/* left side */}

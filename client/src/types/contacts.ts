@@ -29,7 +29,7 @@ export interface ContactsResponse {
 export interface CreateContactPayload {
   contact: {
     name: string;
-    cpf: string;
+    cpf: string | null;
     phone_number: string;
   };
   location: LocationPayload;

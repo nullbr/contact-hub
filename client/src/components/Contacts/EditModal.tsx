@@ -146,7 +146,7 @@ const EditModal = () => {
               />
             </div>
 
-            <div className="col-span-6 sm:col-span-3">
+            <div className="col-span-6">
               <label
                 htmlFor="cpf"
                 className="block mb-2 text-sm font-medium text-gray-900"
