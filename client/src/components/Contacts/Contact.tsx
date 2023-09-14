@@ -7,7 +7,6 @@ import {
   setSelected,
 } from "../../features/table/tableSlice";
 import DeleteButton from "../Shared/Buttons/DeleteButton";
-import { Link } from "react-router-dom";
 import EditButton from "../Shared/Buttons/EditButton";
 
 const Contact = ({ contact }: { contact: ContactParams }) => {
@@ -35,10 +34,11 @@ const Contact = ({ contact }: { contact: ContactParams }) => {
         {contact.name}
       </td>
       <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap capitalize">
-        {contact.location.city}
+        {contact.phone_number}
       </td>
-      <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap capitalize">
-        {contact.location.state}
+      <td className="p-4 text-base font-medium text-gray-900 whitespace-nowrap">
+        {contact.location.city},{" "}
+        <span className="capitalize">{contact.location.state}</span>
       </td>
       <td className="p-4 space-x-2 whitespace-nowrap">
         <EditButton

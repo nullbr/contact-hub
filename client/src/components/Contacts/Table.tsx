@@ -45,21 +45,21 @@ const Table = ({
                   column="name"
                   sortParams={sortParams}
                   setSortParams={setSortParams}
-                  cls="w-1/4"
+                  cls="w-1/3"
                 />
                 <ColumnHeader
-                  title="Coligação"
-                  column="coalition"
+                  title="Número"
+                  column="phone_number"
                   sortParams={sortParams}
                   setSortParams={setSortParams}
-                  cls="w-1/4"
+                  cls="w-1/3"
                 />
                 <ColumnHeader
-                  title="Eleição"
-                  column="election_year"
+                  title="Cidade"
+                  column="city"
                   sortParams={sortParams}
                   setSortParams={setSortParams}
-                  cls="w-1/4"
+                  cls="w-1/3"
                 />
 
                 <th
