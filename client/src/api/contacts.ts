@@ -37,15 +37,12 @@ export async function getContacts({
 export async function getContact({
   accessToken,
   id,
-  showParties = false,
 }: {
   accessToken: string | null;
   id: number | null;
-  showParties?: boolean;
 }): Promise<ContactResponse> {
   const config = {
     headers: { Authorization: `Bearer ${accessToken}`, Client: CLIENT_ID },
-    params: { show_parties: showParties },
   };
 
   return axiosInstance

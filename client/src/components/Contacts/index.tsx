@@ -49,7 +49,7 @@ const Contacts = () => {
   };
 
   const { data } = useQuery({
-    queryKey: ["contacts", debounceSearch],
+    queryKey: ["contacts", queryParams],
     queryFn: () => getContacts(queryParams),
     onSuccess: (response: ContactsResponse) =>
       dispatch(feedResources(response.ids)),

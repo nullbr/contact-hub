@@ -13,7 +13,7 @@ class Contact < ApplicationRecord
   def self.search(params = {})
     associations = { 'state' => 'locations.state', 'city' => 'locations.city' }
 
-    sort_column = params[:sort].presence_in(%w[id name cpf city state]).presence || :name
+    sort_column = params[:sort].presence_in(%w[id name phone_number city state]).presence || :name
 
     sort_column = associations[sort_column] || sort_column
 
