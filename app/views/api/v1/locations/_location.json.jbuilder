@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 json.id                     location.id
+json.address                location.address
 json.city                   location.city.titleize
 json.state                  location.state.upcase
 json.zip_code               location.zip_code

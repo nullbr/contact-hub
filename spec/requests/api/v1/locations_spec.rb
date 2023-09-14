@@ -98,6 +98,7 @@ describe 'Município API' do
         type: :object,
         properties: {
           location: {
+            address: { type: :string },
             city: { type: :string },
             state: { type: :string },
             country: { type: :string },
@@ -106,7 +107,7 @@ describe 'Município API' do
             longitude: { type: :string }
           }
         },
-        required: %w[city state country zip_code latitude longitude]
+        required: %w[address city state country zip_code latitude longitude]
       }
 
       response '201', 'location created' do

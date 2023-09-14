@@ -5,6 +5,7 @@ module Api
     class ContactsController < ApiController
       before_action :verify_client
       before_action :set_contact, only: %i[show update destroy]
+      before_action :set_location, only: %i[create update]
 
       # GET /contacts
       # GET /contacts.json
@@ -62,7 +63,11 @@ module Api
       private
 
       def contact_params
-        params.require(:contact).permit(:name, :phone_number, :cpf, :location_id, :user_id)
+        params.require(:contact).permit(:name, :phone_number, :cpf).merge(user_id: current_user.id, location_id: @location.id)
+      end
+
+      def location_params
+        params.require(:location).permit(:address, :city, :state, :country, :longitude, :latitude, :zip_code)
       end
 
       # Use callbacks to share common setup or constraints between actions.
@@ -72,6 +77,14 @@ module Api
         return if @contact.present?
 
         render json: { errors: ['Contato não encontrado'] }, status: :not_found
+      end
+
+      def set_location
+        @location = Location.find_or_create_by(location_params)
+
+        return unless @location.errors.any?
+
+        render json: { errors: @location.errors.full_messages }, status: :unprocessable_entity
       end
     end
   end

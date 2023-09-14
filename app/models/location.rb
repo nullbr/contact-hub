@@ -3,7 +3,7 @@
 class Location < ApplicationRecord
   has_many :contacts, dependent: :destroy
 
-  validates :city, :state, :zip_code, presence: true
+  validates :address, :city, :state, :zip_code, presence: true
   validates :latitude, :longitude, numericality: true
 
   validate :coordinates_are_valid

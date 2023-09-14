@@ -1,7 +1,10 @@
 export interface Location {
   id: number;
+  address: string;
   city: string;
   state: string;
+  country: string;
+  zip_code: number;
   latitude: number;
   longitude: number;
 }
@@ -15,8 +18,11 @@ export interface LocationsResponse {
 }
 
 export interface LocationPayload {
+  address: string;
   city: string;
   state: string;
+  country: string;
+  zip_code: string;
   latitude: number;
   longitude: number;
 }

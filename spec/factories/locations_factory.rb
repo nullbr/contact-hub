@@ -3,6 +3,7 @@
 FactoryBot.define do
   # create a factory for location
   factory :location do
+    address { Faker::Address.street_address }
     city { Faker::Address.city }
     state { Faker::Address.state }
     country { Faker::Address.country }

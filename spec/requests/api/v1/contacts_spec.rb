@@ -99,16 +99,25 @@ describe 'Contact API' do
             phone_number: { type: :string },
             location_id: { type: :string },
             user_id: { type: :string }
+          },
+          location: {
+            address: { type: :string },
+            city: { type: :string },
+            state: { type: :string },
+            country: { type: :string },
+            zip_code: { type: :string },
+            latitude: { type: :string },
+            longitude: { type: :string }
           }
         },
-        required: %w[name cpf phone_number location_id user_id]
+        required: %w[contact location]
       }
 
       response '201', 'contact created' do
         let(:Authorization) { @access_token }
         let(:Client) { @client_id }
         let(:accept) { 'application/json' }
-        let(:contact) { { contact: attributes_for(:contact) } }
+        let(:contact) { { contact: attributes_for(:contact), location: attributes_for(:location) } }
         run_test!
       end
 
@@ -135,9 +144,18 @@ describe 'Contact API' do
             phone_number: { type: :string },
             location_id: { type: :string },
             user_id: { type: :string }
+          },
+          location: {
+            address: { type: :string },
+            city: { type: :string },
+            state: { type: :string },
+            country: { type: :string },
+            zip_code: { type: :string },
+            latitude: { type: :string },
+            longitude: { type: :string }
           }
         },
-        required: %w[name cpf phone_number location_id user_id]
+        required: %w[contact location]
       }
 
       response '200', 'contact created' do
@@ -145,7 +163,7 @@ describe 'Contact API' do
         let(:Client) { @client_id }
         let(:accept) { 'application/json' }
         let(:id) { @contact.id }
-        let(:contact) { { contact: attributes_for(:contact) } }
+        let(:contact) { { contact: attributes_for(:contact), location: attributes_for(:location) } }
         run_test!
       end
 
