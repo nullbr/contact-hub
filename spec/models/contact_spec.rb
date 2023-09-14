@@ -54,5 +54,10 @@ RSpec.describe Contact, type: :model do
       contact = Contact.order(:cpf).first
       expect(Contact.search({ sort: 'cpf' }).first).to eq(contact)
     end
+
+    it 'should return contacts ordered by phone_number' do
+      contact = Contact.order(:phone_number).first
+      expect(Contact.search({ sort: 'phone_number' }).first).to eq(contact)
+    end
   end
 end

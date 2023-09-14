@@ -42,7 +42,7 @@ const ColumnHeader = ({
   return (
     <th
       scope="col"
-      className={`p-4 text-xs font-medium text-left text-gray-500 ${cls}`}
+      className={`p-2 text-xs font-medium text-left text-gray-500 ${cls}`}
     >
       <button type="button" onClick={handleSort} className="flex uppercase">
         {title}

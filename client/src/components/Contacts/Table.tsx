@@ -43,26 +43,33 @@ const Table = ({
               column="name"
               sortParams={sortParams}
               setSortParams={setSortParams}
-              cls="w-1/3"
+              cls="w-1/4"
             />
             <ColumnHeader
               title="Número"
               column="phone_number"
               sortParams={sortParams}
               setSortParams={setSortParams}
-              cls="w-1/3"
+              cls="w-1/4"
+            />
+            <ColumnHeader
+              title="CPF"
+              column="cpf"
+              sortParams={sortParams}
+              setSortParams={setSortParams}
+              cls="w-1/4"
             />
             <ColumnHeader
               title="Cidade"
               column="city"
               sortParams={sortParams}
               setSortParams={setSortParams}
-              cls="w-1/3"
+              cls="w-1/4"
             />
 
             <th
               scope="col"
-              className="p-4 text-xs font-medium text-left text-gray-500 uppercase"
+              className="p-2 text-xs font-medium text-left text-gray-500 uppercase"
             >
               Ações
             </th>

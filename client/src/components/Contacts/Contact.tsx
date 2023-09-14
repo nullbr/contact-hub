@@ -33,12 +33,15 @@ const Contact = ({ contact }: { contact: ContactParams }) => {
       <td className="p-2 mr-12 space-x-6 whitespace-nowrap text-sm font-semibold text-gray-900 capitalize">
         {contact.name}
       </td>
-      <td className="p-2 text-sm text-gray-900 whitespace-nowrap capitalize">
+      <td className="p-2 text-sm text-gray-900 whitespace-nowrap">
         {contact.phone_number}
       </td>
       <td className="p-2 text-sm text-gray-900 whitespace-nowrap">
+        {contact.cpf}
+      </td>
+      <td className="p-2 text-sm text-gray-900 whitespace-nowrap max-w-[10rem] truncate capitalize">
         {contact.location.city},{" "}
-        <span className="capitalize">{contact.location.state}</span>
+        <span className="upcase">{contact.location.state}</span>
       </td>
       <td className="p-2 space-x-2 whitespace-nowrap">
         <EditButton
