@@ -1,8 +1,8 @@
 import SearchBar from "../Shared/ResourceData/SearchBar";
 import Table from "./Table";
-// import EditModal from "./EditModal";
+import EditModal from "./EditModal";
 // import AddModal from "./AddModal";
-// import DeleteModal from "./DeleteModal";
+import DeleteModal from "./DeleteModal";
 import { useQuery } from "@tanstack/react-query";
 import { getContacts } from "../../api/contacts";
 import { RootState } from "../../store";
@@ -43,12 +43,13 @@ const Contacts = () => {
   };
 
   const { status, data } = useQuery({
-    queryKey: ["contacts", queryParams],
+    queryKey: ["contacts", debounceSearch],
     queryFn: () => getContacts(queryParams),
     onError: (err: AxiosError) => ResponseError({ err }),
     keepPreviousData: true,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    enabled: !!accessToken,
   });
 
   // mount page
@@ -72,8 +73,8 @@ const Contacts = () => {
           setSortParams={setSortParams}
         />
 
-        {/* {editModal && <EditModal />} */}
-        {/* {deleteModal.length > 0 && <DeleteModal />} */}
+        {editModal && <EditModal />}
+        {deleteModal.length > 0 && <DeleteModal />}
         {/* {addModal && <AddModal />} */}
 
         {status === "success" && (

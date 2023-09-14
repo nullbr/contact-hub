@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteContact, deleteContacts } from "../../api/contacts/contacts";
+import { deleteContact, deleteContacts } from "../../api/contacts";
 import { toast } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store";
@@ -22,7 +22,7 @@ const DeleteModal = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(["contacts"]);
 
-      toast.success("Contact excluída com sucesso");
+      toast.success("Contato excluído com sucesso");
     },
     onError: (err: AxiosError) => ResponseError({ err }),
   });
@@ -33,14 +33,14 @@ const DeleteModal = () => {
     onSuccess: () => {
       dispatch(setSelected(null));
 
-      toast.success("Contacts excluídas com sucesso");
+      toast.success("Contatos excluídos com sucesso");
 
       queryClient.invalidateQueries(["contacts"]);
     },
     onError: (err: AxiosError) =>
       ResponseError({
         err,
-        message: "Ocorreu um erro ao excluir as contacts",
+        message: "Ocorreu um erro ao excluir os contatos",
       }),
   });
 

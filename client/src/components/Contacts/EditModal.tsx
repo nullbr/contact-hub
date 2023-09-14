@@ -1,10 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { getContact, editContact } from "../../api/contacts/contacts";
+import { getContact, editContact } from "../../api/contacts";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { ContactPayload } from "../../types/contact";
-import { getCoalitions } from "../../api/coalitions";
+import { EditContactPayload } from "../../types/contacts";
 import { setEditModal } from "../../features/table/tableSlice";
 import { AxiosError } from "axios";
 import { LoaderIcon } from "../../assets/icons/loaderIcon";
@@ -30,16 +28,6 @@ const EditModal = () => {
     refetchOnWindowFocus: false,
   });
 
-  // query options for coalition
-  const coalitionsQuery = useQuery({
-    queryKey: ["coalitions", { accessToken }],
-    queryFn: () => getCoalitions({ accessToken, perPage: "100" }),
-    onError: (err: AxiosError) => ResponseError({ err }),
-    enabled: !!editModal,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
-
   // mutate contact
   const contactMutation = useMutation({
     mutationFn: editContact,
@@ -47,7 +35,7 @@ const EditModal = () => {
       queryClient.invalidateQueries(["contacts"]);
       queryClient.invalidateQueries(["contact"]);
 
-      toast.success("Contact atualizado com sucesso.");
+      toast.success("Contato atualizado com sucesso.");
       closeModal();
     },
     onError: (err: AxiosError) => ResponseError({ err }),
@@ -61,26 +49,24 @@ const EditModal = () => {
     const formData = new FormData(event.currentTarget);
     const entries = Object.fromEntries(formData.entries()) as {
       name: string;
-      election_year: string;
-      coalition: string;
+      phone_number: string;
+      cpf: string;
     };
 
     // validate required fields
-    if (!entries.name && entries.name === "") {
-      toast.error("Nome é obrigatório");
-      return;
-    }
+    if (!entries.name && entries.name === "")
+      return toast.error("Nome é obrigatório");
 
-    if (!entries.coalition && entries.coalition === "") {
-      toast.error("Coligação é obrigatório");
-      return;
-    }
+    if (!entries.phone_number && entries.phone_number === "")
+      return toast.error("Número de telefone é obrigatório");
 
     // submit form data
-    const payload: ContactPayload = {
-      name: entries.name,
-      election_year: Number(entries.election_year),
-      coalition_id: Number(entries.coalition),
+    const payload: EditContactPayload = {
+      contact: {
+        name: entries.name,
+        phone_number: entries.phone_number,
+        cpf: entries.cpf,
+      },
     };
 
     contactMutation.mutate({
@@ -89,14 +75,6 @@ const EditModal = () => {
       payload,
     });
   };
-
-  // handle coalition select
-  const [coalition, setCoalition] = useState<number | string>("");
-  useEffect(() => {
-    if (status !== "success" || !data.contact?.coalition.id) return;
-
-    setCoalition(data.contact.coalition.id);
-  }, [status]);
 
   function closeModal() {
     dispatch(setEditModal({ state: null, resource: null }));
@@ -108,7 +86,7 @@ const EditModal = () => {
       <div className="relative bg-white rounded-lg shadow p-6">
         {/* <!-- Modal header --> */}
         <div className="flex items-start justify-between pb-5 border-b rounded-t">
-          <h3>Contact</h3>
+          <h3>Editar Contato</h3>
           <button
             type="button"
             className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
@@ -145,52 +123,45 @@ const EditModal = () => {
                 defaultValue={data?.contact?.name}
                 id="name"
                 className="form-input"
-                placeholder="Contact 1"
+                placeholder="Contato 1"
                 required
               />
             </div>
 
             <div className="col-span-6 sm:col-span-3">
               <label
-                htmlFor="election_year"
+                htmlFor="phone_number"
                 className="block mb-2 text-sm font-medium text-gray-900"
               >
-                Ano da Eleição
+                Número de Telefone
               </label>
 
               <input
-                type="number"
-                name="election_year"
-                defaultValue={data?.contact.election_year || ""}
-                id="election_year"
+                type="text"
+                name="phone_number"
+                defaultValue={data?.contact.phone_number || ""}
+                id="phone_number"
                 className="form-input"
-                placeholder="2024"
+                placeholder="(00) 00000-0000"
               />
             </div>
 
             <div className="col-span-6 sm:col-span-3">
               <label
-                htmlFor="coalition"
+                htmlFor="cpf"
                 className="block mb-2 text-sm font-medium text-gray-900"
               >
-                Coligação
+                CPF
               </label>
 
-              <select
-                id="coalition"
-                name="coalition"
-                className="form-select"
-                value={coalition || ""}
-                onChange={(e) => setCoalition(e.currentTarget.value)}
-              >
-                <option value="">Selecione um partido</option>
-                {!coalitionsQuery.isLoading &&
-                  coalitionsQuery.data?.coalitions?.map((coalition) => (
-                    <option key={coalition.id} value={coalition.id}>
-                      {coalition.name} ({coalition.acronym})
-                    </option>
-                  ))}
-              </select>
+              <input
+                type="text"
+                name="cpf"
+                defaultValue={data?.contact.cpf || ""}
+                id="cpf"
+                className="form-input"
+                placeholder="(00) 00000-0000"
+              />
             </div>
           </div>
           {/* <!-- Modal footer --> */}

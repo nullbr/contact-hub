@@ -1,7 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { ContactParams } from "../../types/contacts";
-import { setDeleteModal, setSelected } from "../../features/table/tableSlice";
+import {
+  setDeleteModal,
+  setEditModal,
+  setSelected,
+} from "../../features/table/tableSlice";
 import DeleteButton from "../Shared/Buttons/DeleteButton";
 import { Link } from "react-router-dom";
 import EditButton from "../Shared/Buttons/EditButton";
@@ -37,9 +41,11 @@ const Contact = ({ contact }: { contact: ContactParams }) => {
         {contact.location.state}
       </td>
       <td className="p-4 space-x-2 whitespace-nowrap">
-        <Link to={`/contacts/${contact.id}/editar`}>
-          <EditButton actionFn={() => {}} />
-        </Link>
+        <EditButton
+          actionFn={() =>
+            dispatch(setEditModal({ resource: "contact", state: contact.id }))
+          }
+        />
 
         <DeleteButton actionFn={() => dispatch(setDeleteModal(contact.id))} />
       </td>
