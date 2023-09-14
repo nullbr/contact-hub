@@ -13,8 +13,12 @@ import NavPagination from "../Shared/ResourceData/NavPagination";
 import { AxiosError } from "axios";
 import Paper from "../Shared/Template/Paper";
 import ResponseError from "../../utils/Errors/ResponseError";
+import Map from "../Shared/Map";
+import { useMediaQuery } from "../../utils/Hooks/useMediaQuery";
 
 const Contacts = () => {
+  const isMobile = useMediaQuery("(max-width: 640px)");
+
   // queryParams
   const [sortParams, setSortParams] = useState<{
     sort?: string;
@@ -59,7 +63,7 @@ const Contacts = () => {
   }, []);
 
   return (
-    <>
+    <article className="grid sm:grid-rows-2 xl:grid-rows-1 xl:grid-cols-2 gap-4 sm:absolute top-0 left-0 w-full sm:h-[100svh] sm:px-4 sm:pt-[4.5rem] sm:pb-14 sm:overflow-hidden">
       <Paper cls="block overflow-hidden p-0 sm:p-0">
         <SearchBar
           resource="contact"
@@ -89,7 +93,25 @@ const Contacts = () => {
           />
         )}
       </Paper>
-    </>
+
+      <Map
+        cls="hidden sm:block mb-4"
+        height={isMobile ? "h-72" : "h-full"}
+        zoom={3}
+        center={{
+          lat: -14.235,
+          lng: -51.9253,
+        }}
+        markers={(data?.contacts || []).map((contact) => ({
+          position: {
+            lat: contact.location.latitude,
+            lng: contact.location.longitude,
+          },
+          title: contact.name,
+        }))}
+        setOnClick={() => {}}
+      />
+    </article>
   );
 };
 
