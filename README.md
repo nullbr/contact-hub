@@ -1,5 +1,7 @@
 # ContactHub - Contact Management Application
 
+<img width="1800" alt="Screenshot 2023-09-15 at 01 31 30" src="https://github.com/nullbr/contact-hub/assets/94543524/c6d34c17-363d-41c0-9257-b2bb93a27e97">
+
 ContactHub is a web application that allows users to efficiently manage their list of contacts. It provides features for user registration, login/logout, contact management, address lookup via Via Cep, and integration with Google Maps. With ContactHub, you can keep your contacts organized and easily access their information.
 
 ## Table of Contents
