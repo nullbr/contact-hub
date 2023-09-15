@@ -8,6 +8,7 @@ const SearchInput = ({
   autoFocus = false,
   id = "search-input",
   loading = false,
+  value = "",
 }: {
   placeHolder?: string;
   changeFn: (val: string, sec?: any) => void;
@@ -15,6 +16,7 @@ const SearchInput = ({
   autoFocus?: boolean;
   id?: string;
   loading?: boolean;
+  value?: string;
 }) => {
   return (
     <div className="relative">
@@ -31,6 +33,7 @@ const SearchInput = ({
         className="bg-gray-100/50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 pl-[2.1rem]"
         placeholder={placeHolder}
         onChange={(e) => changeFn(e.target.value)}
+        value={value}
         autoComplete="off"
         disabled={disabled}
         autoFocus={autoFocus}

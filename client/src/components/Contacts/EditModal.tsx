@@ -9,10 +9,14 @@ import { LoaderIcon } from "../../assets/icons/loaderIcon";
 import { toast } from "react-hot-toast";
 import Modal from "../Shared/Template/Modal";
 import ResponseError from "../../utils/Errors/ResponseError";
+import { LocationPicker } from "./LocationPicker";
+import { useState } from "react";
+import { LocationPayload } from "../../types/locations";
 
 const EditModal = () => {
   const { accessToken } = useSelector((state: RootState) => state.sessions);
   const queryClient = useQueryClient();
+  const [location, setLocation] = useState<LocationPayload | null>(null);
 
   // modal state
   const { editModal } = useSelector((state: RootState) => state.table);
@@ -22,6 +26,7 @@ const EditModal = () => {
   const { status, data } = useQuery({
     queryKey: ["contact", { accessToken, id: editModal }],
     queryFn: () => getContact({ accessToken, id: editModal }),
+    onSuccess: (res) => setLocation(res.contact.location),
     onError: (err: AxiosError) => ResponseError({ err }),
     enabled: !!editModal,
     refetchOnMount: false,
@@ -60,6 +65,8 @@ const EditModal = () => {
     if (!entries.phone_number && entries.phone_number === "")
       return toast.error("Número de telefone é obrigatório");
 
+    if (!location) return toast.error("Localização é obrigatório");
+
     // submit form data
     const payload: EditContactPayload = {
       contact: {
@@ -67,6 +74,7 @@ const EditModal = () => {
         phone_number: entries.phone_number,
         cpf: entries.cpf,
       },
+      location,
     };
 
     contactMutation.mutate({
@@ -164,8 +172,13 @@ const EditModal = () => {
               />
             </div>
           </div>
-          {/* <!-- Modal footer --> */}
 
+          {/* location select */}
+          <div className="items-center sm:flex sm:gap-6 pt-4">
+            <LocationPicker location={location} setLocation={setLocation} />
+          </div>
+
+          {/* <!-- Modal footer --> */}
           <div className="flex justify-end pt-6 border-t border-gray-200 rounded-b mt-6">
             <button
               disabled={status === "loading" || contactMutation.isLoading}

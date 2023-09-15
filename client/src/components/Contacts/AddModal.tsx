@@ -9,12 +9,14 @@ import { setAddModal } from "../../features/table/tableSlice";
 import { LoaderIcon } from "../../assets/icons/loaderIcon";
 import Modal from "../Shared/Template/Modal";
 import ResponseError from "../../utils/Errors/ResponseError";
-import { useNavigate } from "react-router-dom";
+import { LocationPicker } from "./LocationPicker";
+import { useState } from "react";
+import { LocationPayload } from "../../types/locations";
 
 const AddModal = () => {
   const { accessToken } = useSelector((state: RootState) => state.sessions);
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const [location, setLocation] = useState<LocationPayload | null>(null);
 
   // modal state
   const dispatch = useDispatch() as any;
@@ -22,15 +24,12 @@ const AddModal = () => {
   // mutate contact
   const contactMutation = useMutation({
     mutationFn: createContact,
-    onSuccess: (response) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(["contacts"]);
       queryClient.invalidateQueries(["dashboard"]);
 
       toast.success("Contact criada com sucesso.");
       handleCloseModal();
-
-      // navigate to contact
-      navigate(`/contacts/${response.contact.id}/editar`);
     },
     onError: (err: AxiosError) => ResponseError({ err }),
   });
@@ -54,6 +53,8 @@ const AddModal = () => {
     if (!entries.phone_number && entries.phone_number === "")
       return toast.error("Número de telefone é obrigatório");
 
+    if (!location) return toast.error("Localização é obrigatório");
+
     // submit form data
     const payload: CreateContactPayload = {
       contact: {
@@ -61,15 +62,7 @@ const AddModal = () => {
         phone_number: entries.phone_number,
         cpf: entries.cpf,
       },
-      location: {
-        address: "São Paulo, SP, Brasil",
-        city: "São Paulo",
-        state: "SP",
-        country: "Brasil",
-        zip_code: "01000-000",
-        latitude: -23.5505199,
-        longitude: -46.6333094,
-      },
+      location,
     };
 
     contactMutation.mutate({
@@ -161,10 +154,16 @@ const AddModal = () => {
                 name="cpf"
                 id="cpf"
                 className="form-input"
-                placeholder="(00) 00000-0000"
+                placeholder="000.000.000-00"
               />
             </div>
           </div>
+
+          {/* location select */}
+          <div className="items-center sm:flex sm:gap-6 pt-4">
+            <LocationPicker location={location} setLocation={setLocation} />
+          </div>
+
           {/* <!-- Modal footer --> */}
           <div className="flex justify-end pt-6 border-t border-gray-200 rounded-b mt-6">
             <button

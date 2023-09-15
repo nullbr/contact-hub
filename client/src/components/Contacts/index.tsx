@@ -26,7 +26,7 @@ const Contacts = () => {
     sort?: string;
     direction?: string;
   }>({});
-  const [searchQuery, setSearchQuery] = useState<null | string>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   // debouce search query
   const debounceSearch = useDebounce(searchQuery, 300);
@@ -73,6 +73,7 @@ const Contacts = () => {
         <SearchBar
           resource="contact"
           resourceName="contato"
+          searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
         />
 
@@ -103,7 +104,6 @@ const Contacts = () => {
           },
           title: contact.name,
         }))}
-        setOnClick={() => {}}
       />
     </article>
   );

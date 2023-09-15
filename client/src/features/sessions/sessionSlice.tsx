@@ -84,8 +84,6 @@ export const signUpUser = createAsyncThunk(
   async (details: CreateUserPayload, { rejectWithValue }) => {
     const createResponse = await createUser(details);
 
-    console.log(createResponse);
-
     if (createResponse.errors.length > 0)
       return rejectWithValue(createResponse.errors);
 

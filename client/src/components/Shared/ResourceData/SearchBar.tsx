@@ -11,13 +11,15 @@ import pluralizar from "../../../utils/Scripts/pluralizar";
 const SearchBar = ({
   resource,
   resourceName,
+  searchQuery,
   setSearchQuery,
   showAdd = true,
   showDelete = true,
 }: {
   resource: ResourceName;
   resourceName: string;
-  setSearchQuery: React.Dispatch<React.SetStateAction<string | null>>;
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   showAdd?: boolean;
   showDelete?: boolean;
 }) => {
@@ -34,6 +36,7 @@ const SearchBar = ({
                 Buscar
               </label>
               <SearchInput
+                value={searchQuery}
                 changeFn={setSearchQuery}
                 placeHolder={`Buscar ${pluralizar(resourceName, 2)}`}
                 id={resourceName}

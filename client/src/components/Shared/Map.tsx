@@ -3,7 +3,7 @@ import { RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { LoaderIcon } from "../../assets/icons/loaderIcon";
 import Paper from "./Template/Paper";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Coordinates, MarkerProp } from "../../types/maps";
 
 const options = {
@@ -22,7 +22,7 @@ const Map = ({
   center,
   zoom = 14,
   markers,
-  setOnClick,
+  handleMapClick,
   handleMarkerClick = () => {},
   selectedMarkerIds = [],
 }: {
@@ -32,9 +32,7 @@ const Map = ({
   center: Coordinates;
   zoom?: number;
   markers?: Array<MarkerProp>;
-  setOnClick?: React.Dispatch<
-    React.SetStateAction<google.maps.MapMouseEvent | null>
-  >;
+  handleMapClick?: (event: google.maps.MapMouseEvent | null) => void;
   handleMarkerClick?: (marker: MarkerProp) => void;
   selectedMarkerIds?: number[];
 }) => {
@@ -42,8 +40,8 @@ const Map = ({
   const [openMarker, setOpenMarker] = useState<MarkerProp | null>(null);
 
   // get on map click info
-  function handleMapClick(event: google.maps.MapMouseEvent) {
-    if (setOnClick) setOnClick(event);
+  function handleMap(event: google.maps.MapMouseEvent) {
+    if (handleMapClick) handleMapClick(event);
 
     setOpenMarker(null);
   }
@@ -55,7 +53,7 @@ const Map = ({
           zoom={zoom}
           center={center}
           mapContainerClassName={`rounded-lg ${width} ${height}`}
-          onClick={(e) => handleMapClick(e)}
+          onClick={(e) => handleMap(e)}
           options={options}
         >
           {markers &&
