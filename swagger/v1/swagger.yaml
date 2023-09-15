@@ -4,6 +4,285 @@ info:
   title: Contact Hub API V1
   version: v1
 paths:
+  "/contacts":
+    parameters:
+    - name: Authorization
+      in: header
+      required: true
+      description: Authorization token
+      schema:
+        type: string
+    - name: accept
+      in: header
+      required: true
+      description: Accept header
+      schema:
+        type: string
+    - name: Client
+      in: header
+      required: true
+      description: Client id
+      schema:
+        type: string
+    get:
+      summary: Get all contacts
+      tags:
+      - Contact
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: contacts found
+    post:
+      summary: Create a contact
+      tags:
+      - Contact
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '201':
+          description: contact created
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contact:
+                  name:
+                    type: string
+                  cpf:
+                    type: string
+                  phone_number:
+                    type: string
+                  location_id:
+                    type: string
+                  user_id:
+                    type: string
+                location:
+                  address:
+                    type: string
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  country:
+                    type: string
+                  zip_code:
+                    type: string
+                  latitude:
+                    type: string
+                  longitude:
+                    type: string
+              required:
+              - contact
+              - location
+          application/xml:
+            schema:
+              type: object
+              properties:
+                contact:
+                  name:
+                    type: string
+                  cpf:
+                    type: string
+                  phone_number:
+                    type: string
+                  location_id:
+                    type: string
+                  user_id:
+                    type: string
+                location:
+                  address:
+                    type: string
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  country:
+                    type: string
+                  zip_code:
+                    type: string
+                  latitude:
+                    type: string
+                  longitude:
+                    type: string
+              required:
+              - contact
+              - location
+  "/contacts/{id}":
+    parameters:
+    - name: Authorization
+      in: header
+      required: true
+      description: Authorization token
+      schema:
+        type: string
+    - name: accept
+      in: header
+      required: true
+      description: Accept header
+      schema:
+        type: string
+    - name: Client
+      in: header
+      required: true
+      description: Client id
+      schema:
+        type: string
+    - name: id
+      in: path
+      required: true
+      description: ID of the contact
+      schema:
+        type: string
+    get:
+      summary: Get a contact
+      tags:
+      - Contact
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: contact found
+        '404':
+          description: contact not found
+        '401':
+          description: unauthorized
+    patch:
+      summary: Update a contact
+      tags:
+      - Contact
+      security:
+      - Bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID of the contact
+        schema:
+          type: string
+      responses:
+        '200':
+          description: contact created
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contact:
+                  name:
+                    type: string
+                  cpf:
+                    type: string
+                  phone_number:
+                    type: string
+                  location_id:
+                    type: string
+                  user_id:
+                    type: string
+                location:
+                  address:
+                    type: string
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  country:
+                    type: string
+                  zip_code:
+                    type: string
+                  latitude:
+                    type: string
+                  longitude:
+                    type: string
+              required:
+              - contact
+              - location
+          application/xml:
+            schema:
+              type: object
+              properties:
+                contact:
+                  name:
+                    type: string
+                  cpf:
+                    type: string
+                  phone_number:
+                    type: string
+                  location_id:
+                    type: string
+                  user_id:
+                    type: string
+                location:
+                  address:
+                    type: string
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  country:
+                    type: string
+                  zip_code:
+                    type: string
+                  latitude:
+                    type: string
+                  longitude:
+                    type: string
+              required:
+              - contact
+              - location
+    delete:
+      summary: Delete a contact
+      tags:
+      - Contact
+      security:
+      - Bearer: []
+      responses:
+        '204':
+          description: contact deleted
+        '404':
+          description: contact not found
+        '401':
+          description: unauthorized
+  "/contacts/destroy_multiple":
+    parameters:
+    - name: Authorization
+      in: header
+      required: true
+      description: Authorization token
+      schema:
+        type: string
+    - name: accept
+      in: header
+      required: true
+      description: Accept header
+      schema:
+        type: string
+    - name: Client
+      in: header
+      required: true
+      description: Client id
+      schema:
+        type: string
+    put:
+      summary: Destroy multiple contacts
+      tags:
+      - Contact
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '200':
+          description: contacts destroyed
+        '401':
+          description: unauthorized
   "/locations":
     parameters:
     - name: Authorization
@@ -54,17 +333,26 @@ paths:
               type: object
               properties:
                 location:
+                  address:
+                    type: string
                   city:
                     type: string
                   state:
+                    type: string
+                  country:
+                    type: string
+                  zip_code:
                     type: string
                   latitude:
                     type: string
                   longitude:
                     type: string
               required:
+              - address
               - city
               - state
+              - country
+              - zip_code
               - latitude
               - longitude
           application/xml:
@@ -72,17 +360,26 @@ paths:
               type: object
               properties:
                 location:
+                  address:
+                    type: string
                   city:
                     type: string
                   state:
+                    type: string
+                  country:
+                    type: string
+                  zip_code:
                     type: string
                   latitude:
                     type: string
                   longitude:
                     type: string
               required:
+              - address
               - city
               - state
+              - country
+              - zip_code
               - latitude
               - longitude
   "/locations/{id}":
@@ -246,6 +543,28 @@ paths:
                   email:
                     type: string
               required: []
+    delete:
+      summary: Delete current user
+      tags:
+      - Usuário
+      security:
+      - Bearer: []
+      parameters:
+      - name: Client
+        in: header
+        required: true
+        description: Client id
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        description: Authorization token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: user deleted
   "/users/me":
     parameters:
     - name: accept
